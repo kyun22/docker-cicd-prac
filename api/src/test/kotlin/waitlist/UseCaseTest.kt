@@ -1,10 +1,10 @@
-package usecase
+package waitlist
 
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import waitlist.dto.TokenRequestDto
+import waitlist.dto.WaitlistRequest
 import waitlist.models.WaitlistStatus
 import waitlist.repositories.WaitListRepository
 import waitlist.usecase.WaitlistRegisterUseCase
@@ -21,7 +21,7 @@ class UseCaseTest {
 
     @Test
     fun `userId로 토큰을 발급한다`() {
-        val request: TokenRequestDto = TokenRequestDto("user1", "event1")
+        val request: WaitlistRequest = WaitlistRequest("user1", "event1")
         val response = waitlistRegisterUseCase.execute(request)
 
         assertThat(response.userId).isEqualTo("user1")

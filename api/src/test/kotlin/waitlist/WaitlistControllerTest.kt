@@ -1,4 +1,4 @@
-package controller
+package waitlist
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import waitlist.controller.WaitlistController
-import waitlist.dto.TokenRequestDto
+import waitlist.dto.WaitlistRequest
 import waitlist.dto.WaitlistResponse
 import waitlist.models.WaitlistStatus
 import waitlist.usecase.WaitlistCheckOrderUseCase
@@ -39,7 +39,7 @@ class WaitlistControllerTest {
     @Test
     fun `mock - 토큰을 발급한다`() {
         //given
-        val request: TokenRequestDto = TokenRequestDto("user1", "event1")
+        val request: WaitlistRequest = WaitlistRequest("user1", "event1")
         every { waitlistRegisterUseCase.execute(request) } returns WaitlistResponse(
             token = UUID.randomUUID().toString(),
             userId = request.userId,

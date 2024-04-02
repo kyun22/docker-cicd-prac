@@ -1,7 +1,7 @@
 package waitlist.usecase
 
 import org.springframework.stereotype.Component
-import waitlist.dto.TokenRequestDto
+import waitlist.dto.WaitlistRequest
 import waitlist.dto.WaitlistResponse
 import waitlist.models.Waitlist
 import waitlist.repositories.EventRepository
@@ -13,7 +13,7 @@ class WaitlistRegisterUseCase(
     val waitlistRepository: WaitListRepository
 ) {
 
-    fun execute(request: TokenRequestDto): WaitlistResponse {
+    fun execute(request: WaitlistRequest): WaitlistResponse {
         // event가 존재하는지 체크
         val event = eventRepository.findById(request.eventId) ?: throw RuntimeException("존재하지 않는 이벤트")
 

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import waitlist.dto.TokenRequestDto
+import waitlist.dto.WaitlistRequest
 import waitlist.dto.WaitlistResponse
 import waitlist.usecase.WaitlistCheckOrderUseCase
 import waitlist.usecase.WaitlistRegisterUseCase
@@ -20,9 +20,9 @@ class WaitlistController(
 
     @PostMapping("/")
     fun generate(
-        @RequestBody tokenRequestDto: TokenRequestDto
+        @RequestBody waitlistRequest: WaitlistRequest
     ): WaitlistResponse {
-        return registerUseCase.execute(tokenRequestDto)
+        return registerUseCase.execute(waitlistRequest)
     }
 
     @GetMapping("/{userId}/{eventId}")

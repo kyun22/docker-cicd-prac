@@ -1,6 +1,6 @@
 package waitlist.dto
 
-data class TokenRequestDto(
+data class WaitlistRequest(
     val userId: String,
     val eventId: String
 )
