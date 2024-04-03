@@ -1,5 +1,7 @@
 package event
 
+import advice.ApiControllerAdvice
+import advice.WaitlistException
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
@@ -20,15 +22,42 @@ class EventControllerTest {
 
     @BeforeEach
     fun setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(EventController(eventSearchUseCase)).build()
+        mockMvc = MockMvcBuilders.standaloneSetup(EventController(eventSearchUseCase))
+            .setControllerAdvice(ApiControllerAdvice()).build()
     }
+
+    @Test
+    fun `이벤트 조회 실패 - 토큰이 존재하지 않음`() {
+        every { eventSearchUseCase.execute("2024-03-25", "event1", null)
+        } throws WaitlistException(WaitlistException.WaitlistErrorResult.MISSING_TOKEN)
+        mockMvc.perform(
+            get("/events")
+                .param("date", "2024-03-25")
+                .param("eventId", "event1")
+        ).andExpect(status().isUnauthorized)
+    }
+
+    @Test
+    fun `이벤트 조회 실패 - 토큰이 유효하지 않음`() {
+        every { eventSearchUseCase.execute("2024-03-25", "event1", "token0")
+        } throws WaitlistException(WaitlistException.WaitlistErrorResult.INVALID_TOKEN)
+        val resultActions = mockMvc.perform(
+            get("/events")
+                .header("X-USER-TOKEN", "token0")
+                .param("date", "2024-03-25")
+                .param("eventId", "event1")
+        ).andExpect(status().isUnauthorized)
+    }
+
+
 
     @Test
     fun `예약 가능한 티켓을 조회한다`() {
         val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"))
-        every { eventSearchUseCase.execute("2024-03-25", "event1") } returns events
+        every { eventSearchUseCase.execute("2024-03-25", "event1", "token1") } returns events
         mockMvc.perform(
             get("/events")
+                .header("X-USER-TOKEN", "token1")
                 .param("date", "2024-03-25")
                 .param("eventId", "event1")
         )
@@ -77,9 +106,10 @@ class EventControllerTest {
     @Test
     fun `예약 가능 이벤트 조회 - 날짜로`() {
         val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"))
-        every { eventSearchUseCase.execute(date = "2024-03-25", null) } returns events
+        every { eventSearchUseCase.execute(date = "2024-03-25", null, "token1") } returns events
         mockMvc.perform(
             get("/events")
+                .header("X-USER-TOKEN", "token1")
                 .param("date", "2024-03-25")
         )
             .andExpect(status().isOk)
@@ -91,9 +121,10 @@ class EventControllerTest {
     @Test
     fun `예약 가능 이벤트 조회 - 아이디로`() {
         val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"))
-        every { eventSearchUseCase.execute(date = null, eventId = "event1") } returns events
+        every { eventSearchUseCase.execute(date = null, eventId = "event1", token = "token1") } returns events
         mockMvc.perform(
             get("/events")
+                .header("X-USER-TOKEN", "token1")
                 .param("eventId", "event1")
         )
             .andExpect(status().isOk)
@@ -109,8 +140,8 @@ class EventControllerTest {
             EventResponse("event2", "이벤트2", "서울", 10, makeDymmySeatVos(), "2024-03-26"),
             EventResponse("event3", "이벤트3", "서울", 10, makeDymmySeatVos(), "2024-03-27"),
         )
-        every { eventSearchUseCase.execute(date = null, eventId = null) } returns events
-        mockMvc.perform(get("/events"))
+        every { eventSearchUseCase.execute(date = null, eventId = null, token = "token1") } returns events
+        mockMvc.perform(get("/events").header("X-USER-TOKEN", "token1"))
             .andExpect(status().isOk)
             .andDo(MockMvcResultHandlers.print())
             .andExpect(jsonPath("$.length()").value(3))

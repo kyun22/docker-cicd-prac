@@ -15,4 +15,8 @@ class WaitlistCoreRepository(
     override fun save(waitlist: Waitlist): Waitlist {
         return waitlistJpaRepository.save(waitlist)
     }
+
+    override fun findById(id: String): Waitlist? {
+        return waitlistJpaRepository.findById(id).orElse(null)
+    }
 }
