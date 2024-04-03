@@ -39,7 +39,7 @@ class WaitlistControllerTest {
     @Test
     fun `mock - 토큰을 발급한다`() {
         //given
-        val request: WaitlistRequest = WaitlistRequest("user1", "event1")
+        val request = WaitlistRequest("user1", "event1")
         every { waitlistRegisterUseCase.execute(request) } returns WaitlistResponse(
             token = UUID.randomUUID().toString(),
             userId = request.userId,

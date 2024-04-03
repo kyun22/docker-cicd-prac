@@ -18,7 +18,7 @@ class WaitlistController(
     val checkOrderUseCase: WaitlistCheckOrderUseCase
 ) {
 
-    @PostMapping("/")
+    @PostMapping("")
     fun generate(
         @RequestBody waitlistRequest: WaitlistRequest
     ): WaitlistResponse {

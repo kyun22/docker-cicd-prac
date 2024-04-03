@@ -10,7 +10,7 @@ import waitlist.repositories.WaitListRepository
 @Component
 class WaitlistRegisterUseCase(
     private val eventRepository: EventRepository,
-    val waitlistRepository: WaitListRepository
+    private val waitlistRepository: WaitListRepository
 ) {
 
     fun execute(request: WaitlistRequest): WaitlistResponse {
