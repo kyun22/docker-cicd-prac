@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import waitlist.controller.WaitlistController
 import waitlist.dto.WaitlistRequest
 import waitlist.dto.WaitlistResponse
-import waitlist.models.WaitlistStatus
+import waitlist.models.Waitlist
 import waitlist.usecase.WaitlistCheckOrderUseCase
 import waitlist.usecase.WaitlistRegisterUseCase
 import java.util.UUID
@@ -45,7 +45,7 @@ class WaitlistControllerTest {
             userId = request.userId,
             eventId = request.eventId,
             position = 0,
-            status = WaitlistStatus.WAITING
+            status = Waitlist.WaitlistStatus.WAITING
         )
         val json = objectMapper.writeValueAsString(request)
 
@@ -70,7 +70,7 @@ class WaitlistControllerTest {
             userId = "user1",
             eventId = "event1",
             position = 0,
-            status = WaitlistStatus.WAITING
+            status = Waitlist.WaitlistStatus.WAITING
         )
 
         //when

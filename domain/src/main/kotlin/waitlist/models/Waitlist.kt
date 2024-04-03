@@ -10,6 +10,12 @@ class Waitlist(
     val expiredAt: LocalDateTime?,
     val status: WaitlistStatus
 ) {
+    enum class WaitlistStatus {
+        AVAILABLE, WAITING, EXPIRED,
+        ;
+
+    }
+
     companion object {
         fun newOf(userId: String, eventId: String): Waitlist {
             return Waitlist(

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 import waitlist.dto.WaitlistRequest
 import waitlist.models.Event
 import waitlist.models.Waitlist
-import waitlist.models.WaitlistStatus
 import waitlist.repositories.EventRepository
 import waitlist.repositories.WaitListRepository
 import waitlist.usecase.WaitlistRegisterUseCase
@@ -41,7 +40,7 @@ class WaitlistRegisterUseCaseTest {
         //then
         assertThat(response.userId).isEqualTo("user1")
         assertThat(response.eventId).isEqualTo("event1")
-        assertThat(response.status).isEqualTo(WaitlistStatus.WAITING)
+        assertThat(response.status).isEqualTo(Waitlist.WaitlistStatus.WAITING)
 
     }
 

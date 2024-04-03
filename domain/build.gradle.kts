@@ -1,3 +1,13 @@
+plugins {
+    kotlin("plugin.noarg") version "1.9.23"
+}
+
+noArg {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.jetbrains.kotlin:kotlin-test")

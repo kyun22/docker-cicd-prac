@@ -1,4 +1,4 @@
-package ticket
+package event
 
 import org.springframework.stereotype.Component
 import waitlist.repositories.EventRepository

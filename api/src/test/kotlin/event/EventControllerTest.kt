@@ -1,4 +1,4 @@
-package ticket
+package event
 
 import io.mockk.every
 import io.mockk.mockk
@@ -9,6 +9,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import waitlist.models.Event
+import waitlist.models.Seat
+import java.time.LocalDateTime
 import kotlin.test.Test
 
 class EventControllerTest {
@@ -22,7 +25,7 @@ class EventControllerTest {
 
     @Test
     fun `예약 가능한 티켓을 조회한다`() {
-        val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", "2024-03-25"))
+        val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"))
         every { eventSearchUseCase.execute("2024-03-25", "event1") } returns events
         mockMvc.perform(
             get("/events")
@@ -33,11 +36,47 @@ class EventControllerTest {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(jsonPath("$.length()").value(1))
             .andExpect(jsonPath("$[0].id").value("event1"))
+            .andExpect(jsonPath("$[0].availableSeats").value(10))
+    }
+
+    private fun makeDymmySeatVos(): MutableList<SeatVo> {
+        val seats = mutableListOf<SeatVo>()
+        for (i in 1..10) {
+            val seat = Seat(
+                i.toLong(),
+                Event("event1", "name", "loc", LocalDateTime.now()),
+                i.toString(),
+                1000,
+                Seat.SeatStatus.AVAILABLE
+            )
+            seats.add(SeatVo.of(seat))
+        }
+        for (i in 11..20) {
+            val seat = Seat(
+                i.toLong(),
+                Event("event1", "name", "loc", LocalDateTime.now()),
+                i.toString(),
+                1000,
+                Seat.SeatStatus.RESERVED
+            )
+            seats.add(SeatVo.of(seat))
+        }
+        for (i in 21..30) {
+            val seat = Seat(
+                i.toLong(),
+                Event("event1", "name", "loc", LocalDateTime.now()),
+                i.toString(),
+                1000,
+                Seat.SeatStatus.PURCHASED
+            )
+            seats.add(SeatVo.of(seat))
+        }
+        return seats
     }
 
     @Test
     fun `예약 가능 이벤트 조회 - 날짜로`() {
-        val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", "2024-03-25"))
+        val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"))
         every { eventSearchUseCase.execute(date = "2024-03-25", null) } returns events
         mockMvc.perform(
             get("/events")
@@ -51,7 +90,7 @@ class EventControllerTest {
 
     @Test
     fun `예약 가능 이벤트 조회 - 아이디로`() {
-        val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", "2024-03-25"))
+        val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"))
         every { eventSearchUseCase.execute(date = null, eventId = "event1") } returns events
         mockMvc.perform(
             get("/events")
@@ -66,9 +105,9 @@ class EventControllerTest {
     @Test
     fun `전체 예약 가능 이벤트 조회 - 검색조건 없음`() {
         val events = listOf<EventResponse>(
-            EventResponse("event1", "이벤트1", "서울", "2024-03-25"),
-            EventResponse("event2", "이벤트2", "서울", "2024-03-26"),
-            EventResponse("event3", "이벤트3", "서울", "2024-03-27"),
+            EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"),
+            EventResponse("event2", "이벤트2", "서울", 10, makeDymmySeatVos(), "2024-03-26"),
+            EventResponse("event3", "이벤트3", "서울", 10, makeDymmySeatVos(), "2024-03-27"),
         )
         every { eventSearchUseCase.execute(date = null, eventId = null) } returns events
         mockMvc.perform(get("/events"))
