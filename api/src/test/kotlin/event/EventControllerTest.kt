@@ -1,8 +1,8 @@
 package event
 
 import advice.ApiControllerAdvice
-import advice.WaitlistErrorResult
-import advice.WaitlistException
+import advice.EventErrorResult
+import advice.EventException
 import event.controller.EventController
 import event.dto.EventResponse
 import event.dto.SeatVo
@@ -34,7 +34,7 @@ class EventControllerTest {
     @Test
     fun `이벤트 조회 실패 - 토큰이 존재하지 않음`() {
         every { eventSearchUseCase.execute("2024-03-25", "event1", null)
-        } throws WaitlistException(WaitlistErrorResult.MISSING_TOKEN)
+        } throws EventException(EventErrorResult.MISSING_TOKEN)
         mockMvc.perform(
             get("/events")
                 .param("date", "2024-03-25")
@@ -45,7 +45,7 @@ class EventControllerTest {
     @Test
     fun `이벤트 조회 실패 - 토큰이 유효하지 않음`() {
         every { eventSearchUseCase.execute("2024-03-25", "event1", "token0")
-        } throws WaitlistException(WaitlistErrorResult.INVALID_TOKEN)
+        } throws EventException(EventErrorResult.INVALID_TOKEN)
         val resultActions = mockMvc.perform(
             get("/events")
                 .header("X-USER-TOKEN", "token0")

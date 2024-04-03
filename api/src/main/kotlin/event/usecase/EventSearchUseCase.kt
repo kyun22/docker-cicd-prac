@@ -1,7 +1,7 @@
 package event.usecase
 
-import advice.WaitlistErrorResult
-import advice.WaitlistException
+import advice.EventErrorResult
+import advice.EventException
 import event.dto.EventListResponse
 import event.dto.EventResponse
 import org.springframework.stereotype.Component
@@ -17,8 +17,8 @@ class EventSearchUseCase(
     fun execute(date: String?, eventId: String?, token: String?): List<EventResponse> {
         // 토큰 유효성을 검증
         if (token != null) {
-            val waitlist = waitListRepository.findById(token) ?: throw WaitlistException(WaitlistErrorResult.MISSING_TOKEN)
-            if(waitlist.status != Waitlist.Status.AVAILABLE) throw WaitlistException(WaitlistErrorResult.INVALID_TOKEN)
+            val waitlist = waitListRepository.findById(token) ?: throw EventException(EventErrorResult.MISSING_TOKEN)
+            if(waitlist.status != Waitlist.Status.AVAILABLE) throw EventException(EventErrorResult.INVALID_TOKEN)
         }
 
         val events = when {

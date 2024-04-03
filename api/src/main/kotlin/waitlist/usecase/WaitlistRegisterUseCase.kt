@@ -1,5 +1,7 @@
 package waitlist.usecase
 
+import advice.WaitlistErrorResult
+import advice.WaitlistException
 import org.springframework.stereotype.Component
 import waitlist.dto.WaitlistRequest
 import waitlist.dto.WaitlistResponse
@@ -15,7 +17,7 @@ class WaitlistRegisterUseCase(
 
     fun execute(request: WaitlistRequest): WaitlistResponse {
         // event가 존재하는지 체크
-        val event = eventRepository.findById(request.eventId) ?: throw RuntimeException("존재하지 않는 이벤트")
+        val event = eventRepository.findById(request.eventId) ?: throw WaitlistException(WaitlistErrorResult.EVENT_NOT_EXISTS)
 
         // 이미 등록한 대기열이 있는지 체크
         val before = waitlistRepository.findByUserIdAndEventId(request.userId, request.eventId)

@@ -1,8 +1,6 @@
 package advice
 
-class WaitlistException(
+class WaitlistException (
     val errorResult: WaitlistErrorResult
 ): RuntimeException() {
 }
-
-

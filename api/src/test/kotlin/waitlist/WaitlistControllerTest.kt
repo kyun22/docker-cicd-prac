@@ -1,5 +1,8 @@
 package waitlist
 
+import advice.ApiControllerAdvice
+import advice.WaitlistErrorResult
+import advice.WaitlistException
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
@@ -33,8 +36,28 @@ class WaitlistControllerTest {
             WaitlistController(
                 waitlistRegisterUseCase,
                 waitlistCheckOrderUseCase
-                )).build()
+            )
+        )
+            .setControllerAdvice(ApiControllerAdvice())
+            .build()
     }
+
+    @Test
+    fun `토큰 발급 실패 - 이벤트가 존재하지 않음`() {
+        //given
+        val request = WaitlistRequest("user1", "event0")
+        val json = objectMapper.writeValueAsString(request)
+        //when
+        every { waitlistRegisterUseCase.execute(request) } throws WaitlistException(WaitlistErrorResult.EVENT_NOT_EXISTS)
+        mockMvc.perform(
+            post("/waitlist")
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+            //then
+            .andExpect(status().isNotFound)
+    }
+
 
     @Test
     fun `mock - 토큰을 발급한다`() {
@@ -63,7 +86,7 @@ class WaitlistControllerTest {
 
 
     @Test
-    fun `mock - 대기순번을 조회한다`(){
+    fun `mock - 대기순번을 조회한다`() {
         //given
         every { waitlistCheckOrderUseCase.execute("user1", "event1") } returns WaitlistResponse(
             token = UUID.randomUUID().toString(),
