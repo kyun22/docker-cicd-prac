@@ -1,4 +1,4 @@
-package event
+package event.dto
 
 import waitlist.models.Event
 import waitlist.models.Seat

@@ -1,7 +1,9 @@
-package event
+package event.usecase
 
 import advice.WaitlistErrorResult
 import advice.WaitlistException
+import event.dto.EventListResponse
+import event.dto.EventResponse
 import org.springframework.stereotype.Component
 import waitlist.models.Waitlist
 import waitlist.repositories.EventRepository

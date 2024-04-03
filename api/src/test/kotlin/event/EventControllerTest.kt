@@ -3,6 +3,10 @@ package event
 import advice.ApiControllerAdvice
 import advice.WaitlistErrorResult
 import advice.WaitlistException
+import event.controller.EventController
+import event.dto.EventResponse
+import event.dto.SeatVo
+import event.usecase.EventSearchUseCase
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
