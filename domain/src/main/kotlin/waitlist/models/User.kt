@@ -15,6 +15,10 @@ class User(
         this.point += amount
     }
 
+    fun subtractPoint(amount: Int) {
+        this.point -= amount
+    }
+
     companion object {
         fun newInstance(): User {
             return User(null, 0)
