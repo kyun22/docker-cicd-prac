@@ -17,6 +17,6 @@ class Event(
 ) {
 
     fun getAvailableSeatCount(): Int {
-        return seats.filter { seat -> seat.status == Seat.SeatStatus.AVAILABLE }.size
+        return seats.filter { seat -> seat.status == Seat.Status.AVAILABLE }.size
     }
 }

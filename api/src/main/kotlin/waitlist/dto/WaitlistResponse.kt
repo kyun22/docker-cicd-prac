@@ -7,7 +7,7 @@ data class WaitlistResponse(
     val userId: String,
     val eventId: String,
     val position: Int,
-    val status: Waitlist.WaitlistStatus
+    val status: Waitlist.Status
 ) {
     companion object {
         fun of(waitlist: Waitlist): WaitlistResponse {

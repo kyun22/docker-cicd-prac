@@ -8,9 +8,9 @@ class Waitlist(
     val eventId: String,
     val createdAt: LocalDateTime,
     val expiredAt: LocalDateTime?,
-    val status: WaitlistStatus
+    val status: Status
 ) {
-    enum class WaitlistStatus {
+    enum class Status {
         AVAILABLE, WAITING, EXPIRED,
         ;
 
@@ -24,7 +24,7 @@ class Waitlist(
                 eventId = eventId,
                 createdAt = LocalDateTime.now(),
                 expiredAt = null,
-                status = WaitlistStatus.WAITING
+                status = Status.WAITING
             )
         }
     }

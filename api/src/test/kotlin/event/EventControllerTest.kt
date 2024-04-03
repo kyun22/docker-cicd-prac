@@ -1,6 +1,7 @@
 package event
 
 import advice.ApiControllerAdvice
+import advice.WaitlistErrorResult
 import advice.WaitlistException
 import io.mockk.every
 import io.mockk.mockk
@@ -29,7 +30,7 @@ class EventControllerTest {
     @Test
     fun `이벤트 조회 실패 - 토큰이 존재하지 않음`() {
         every { eventSearchUseCase.execute("2024-03-25", "event1", null)
-        } throws WaitlistException(WaitlistException.WaitlistErrorResult.MISSING_TOKEN)
+        } throws WaitlistException(WaitlistErrorResult.MISSING_TOKEN)
         mockMvc.perform(
             get("/events")
                 .param("date", "2024-03-25")
@@ -40,7 +41,7 @@ class EventControllerTest {
     @Test
     fun `이벤트 조회 실패 - 토큰이 유효하지 않음`() {
         every { eventSearchUseCase.execute("2024-03-25", "event1", "token0")
-        } throws WaitlistException(WaitlistException.WaitlistErrorResult.INVALID_TOKEN)
+        } throws WaitlistException(WaitlistErrorResult.INVALID_TOKEN)
         val resultActions = mockMvc.perform(
             get("/events")
                 .header("X-USER-TOKEN", "token0")
@@ -76,7 +77,7 @@ class EventControllerTest {
                 Event("event1", "name", "loc", LocalDateTime.now()),
                 i.toString(),
                 1000,
-                Seat.SeatStatus.AVAILABLE
+                Seat.Status.AVAILABLE
             )
             seats.add(SeatVo.of(seat))
         }
@@ -86,7 +87,7 @@ class EventControllerTest {
                 Event("event1", "name", "loc", LocalDateTime.now()),
                 i.toString(),
                 1000,
-                Seat.SeatStatus.RESERVED
+                Seat.Status.RESERVED
             )
             seats.add(SeatVo.of(seat))
         }
@@ -96,7 +97,7 @@ class EventControllerTest {
                 Event("event1", "name", "loc", LocalDateTime.now()),
                 i.toString(),
                 1000,
-                Seat.SeatStatus.PURCHASED
+                Seat.Status.PURCHASED
             )
             seats.add(SeatVo.of(seat))
         }

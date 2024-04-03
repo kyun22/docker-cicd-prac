@@ -13,9 +13,9 @@ class Seat (
     val event: Event,
     val number: String,
     val price: Int,
-    val status: SeatStatus
+    val status: Status
 ){
-    enum class SeatStatus {
+    enum class Status {
         AVAILABLE, RESERVED, PURCHASED
     }
 }

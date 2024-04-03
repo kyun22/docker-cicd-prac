@@ -40,7 +40,7 @@ class WaitlistRegisterUseCaseTest {
         //then
         assertThat(response.userId).isEqualTo("user1")
         assertThat(response.eventId).isEqualTo("event1")
-        assertThat(response.status).isEqualTo(Waitlist.WaitlistStatus.WAITING)
+        assertThat(response.status).isEqualTo(Waitlist.Status.WAITING)
 
     }
 

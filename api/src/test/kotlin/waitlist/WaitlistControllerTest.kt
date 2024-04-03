@@ -45,7 +45,7 @@ class WaitlistControllerTest {
             userId = request.userId,
             eventId = request.eventId,
             position = 0,
-            status = Waitlist.WaitlistStatus.WAITING
+            status = Waitlist.Status.WAITING
         )
         val json = objectMapper.writeValueAsString(request)
 
@@ -70,7 +70,7 @@ class WaitlistControllerTest {
             userId = "user1",
             eventId = "event1",
             position = 0,
-            status = Waitlist.WaitlistStatus.WAITING
+            status = Waitlist.Status.WAITING
         )
 
         //when
