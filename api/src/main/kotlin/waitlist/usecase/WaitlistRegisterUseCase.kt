@@ -19,6 +19,8 @@ class WaitlistRegisterUseCase(
         // event가 존재하는지 체크
         val event = eventRepository.findById(request.eventId) ?: throw WaitlistException(WaitlistErrorResult.EVENT_NOT_EXISTS)
 
+        // user가 존재하는지 체크
+
         // 이미 등록한 대기열이 있는지 체크
         val before = waitlistRepository.findByUserIdAndEventId(request.userId, request.eventId)
         // todo, 이미 존재하는 경우 처리해야함 ?.

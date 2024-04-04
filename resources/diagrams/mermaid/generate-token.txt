@@ -1,0 +1,22 @@
+---
+title: 토큰 발급 프로세스
+---
+flowchart TD
+    A(토큰 발급) --> B[Waitlist API]
+    B --> C[/user_id, event_id/]
+    C --> D{존재하는 Event 인지?}
+    D -->|No| E(throw Exception)
+    D -->|Yes| F{존재하는 유저인지?}
+    F -->|No| E(throw Exception)
+    F -->|Yes| H{이미 발급된 토큰이 있는지?}
+    H -->|No| J[새로운 토큰 생성]
+    J --> J1{바로 사용 가능한지?
+    status 결정}
+    J1 -->|No| K[대기열 순번 체크 & 응답 생성]
+    J1 --> J2[응답 생성:
+    대기순번 = 0,
+    status = available]
+    J2 --> I
+    K --> I(토큰 발급 응답)
+    H --> |Yes| L[토큰 대기순번 응답 생성]
+    L --> N(토큰 대기순번 응답)
