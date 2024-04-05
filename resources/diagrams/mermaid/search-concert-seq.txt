@@ -1,0 +1,23 @@
+sequenceDiagram
+    actor User
+    participant Filter
+    participant Api
+    participant Service
+    participant DB
+
+    alt 토큰이 유효하지 않음
+        User ->> Filter : 콘서트 조회 Request
+        Filter ->> User: Exception
+
+
+    else 유효한 토큰
+    User->>Api: 콘서트 조회 Request
+    end
+    Api ->> Service: userId, 검색조건(날짜, 콘서트이름)
+    activate Service
+    Service ->> DB : 콘서트 조회
+    DB -->> Service : 조회 결과 반환
+    Service -->> Api: 조회결과 List<Concert>
+    deactivate Service
+    Api -->> User: 콘서트 조회 Response
+

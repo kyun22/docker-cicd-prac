@@ -56,6 +56,7 @@ class WaitlistControllerTest {
         )
             //then
             .andExpect(status().isNotFound)
+            .andDo(print())
     }
 
 

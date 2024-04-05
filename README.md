@@ -10,11 +10,20 @@
 
 > 다이어그램은 mermaid 사용, 무료버전 5개 한계라서, /resources/diagrams/mermaid에 동명의 .txt파일로 저장
  
-##### 티켓 구매 시퀀스 다이어그램 
-![img.png](resources/diagrams/images/buy-ticket-seq-diagram.png)
+##### 토큰 발급 시퀀스 다이어그램
+![img.png](resources/diagrams/images/generate-token-seq.png)
 
-##### 토큰 발급 플로우차트 
-![img.png](resources/diagrams/images/generate-token.png)
+##### 토큰 검증 시퀀스
+![img.png](resources/diagrams/images/validate-token-seq.png)
+
+##### 대기순번 조회 시퀀스 다이어그램
+![img.png](resources/diagrams/images/check-waiting-position-seq.png)
+
+##### 콘서트 조회 시퀀스 다이어그램
+![img.png](resources/diagrams/images/search-concert-info-seq.png)
+
+##### 콘서트 티켓 예매 시퀀스 다이어그램
+![img.png](resources/diagrams/images/ticket-reservation-seq.png)
 
 #### Step6. ERD, MockAPI
 - ERD 설계 자료 제출
@@ -22,4 +31,4 @@
 - Github repo 제출
 
 ##### ERD
-![erd.png](resources/diagrams/images/erd.png)
+![img.png](resources/diagrams/images/erd.png)

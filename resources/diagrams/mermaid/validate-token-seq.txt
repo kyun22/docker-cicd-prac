@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant Api
+    participant Service
+    participant DB
+
+    alt 토큰이 존재하지 않는 경우
+        Api ->> Service: 토큰 검증
+        Service ->> DB: 토큰 조회
+        DB -->> Service: 존재하지 않음
+        Service -->> Api: Exception
+
+    else 토큰이 만료된 경우
+        Api ->> Service: 토큰 검증
+        Service ->> DB: 토큰 조회
+        DB -->> Service: 만료된 토큰
+        Service -->> Api: Exception
+
+    else 유효한 토큰인 경우
+        Api ->> Service: 토큰 검증
+        Service ->> DB: 토큰 조회
+        DB -->> Service: 유효한 토큰
+        Service -->> Api: 토큰 반환
+    end
+

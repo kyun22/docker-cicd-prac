@@ -1,0 +1,36 @@
+sequenceDiagram
+    actor User
+    participant Api
+    participant Service
+    participant DB
+
+
+    User ->> Api : 콘서트 예약 Request
+    activate Api
+    Api ->> Service: send valid token
+    Api ->> Service: send user_id
+    Api ->> Service: send seat_ids
+    activate Service
+    Service ->> DB: 토큰 유효성 조회
+    activate DB
+    DB -->> Service: 유효함
+    deactivate DB
+    Service ->> DB: 콘서트좌석 조회
+    activate DB
+    DB -->> Service: 좌석 데이터
+    deactivate DB
+
+    alt 좌석이 선점된 경우
+    Service -->> Api: Exception
+    deactivate Service
+    Api -->> User: 오류 응답
+    deactivate Api
+    else 좌석이 선점되지 않음
+    Service ->> DB: 티켓 저장 (status: 예약)
+    activate Service
+    Service -->> Api: 티켓 리스트
+    activate Api
+    deactivate Service
+    Api -->> User: 콘서트 정보 조회 Response
+    end
+    deactivate Api

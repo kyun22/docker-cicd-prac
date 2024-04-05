@@ -1,0 +1,38 @@
+sequenceDiagram
+    actor User
+    participant Api
+    participant Service
+    participant DB
+
+    alt 토큰이 유효하지 않음
+        User ->> Api : 대기순번 조회 Request
+        activate Api
+        Api ->> Service: send token
+        activate Service
+        Service ->> DB: 토큰 유효성 조회
+        activate DB
+        DB -->> Service: 유효하지 않음
+        deactivate DB
+        Service -->> Api: Exception
+        deactivate Service
+        Api -->> User: 오류 응답 401
+        deactivate Api
+
+    else 유효한 토큰
+        User ->> Api : 대기순번 조회 Request
+        activate Api
+        Api ->> Service: send token
+        activate Service
+        Service ->> DB: 토큰 유효성 조회
+        activate DB
+        DB -->> Service: 유효함
+        deactivate DB
+        Service ->> DB: 대기열 순번 조회
+        activate DB
+        DB -->> Service: 순번 조회결과
+        deactivate DB
+        Service -->> Api: 대기순번 조회 Response 생성
+        deactivate Service
+        Api -->> User: 대기순번 Response
+        deactivate Api
+    end

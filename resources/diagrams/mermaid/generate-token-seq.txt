@@ -1,0 +1,17 @@
+sequenceDiagram
+    actor U as User
+    participant A as Api
+    participant S as Service
+    participant D as DB
+    U ->> A: 토큰발급 request
+    A ->> S: 토큰 발급
+    activate S
+    S ->> D: 대기열 조회
+    D -->> S: 대기열 조회 결과
+    alt 허용인원 이내
+    S -->> A: 토큰 발급 (status: Ongoing)
+    else 허용인원 초과
+    S -->> A: 토큰 발급 (status: Wait)
+    end
+    deactivate S
+    A -->> U: 토큰 response

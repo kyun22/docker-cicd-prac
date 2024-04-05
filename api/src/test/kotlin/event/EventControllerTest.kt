@@ -52,6 +52,7 @@ class EventControllerTest {
                 .param("date", "2024-03-25")
                 .param("eventId", "event1")
         ).andExpect(status().isUnauthorized)
+            .andDo(MockMvcResultHandlers.print())
     }
 
 
