@@ -4,6 +4,7 @@
 #### Step5. 요구사항 설계 및 Milestone
 - 시나리오 선정 및 마일스톤 제출
   - 시나리오 선정 : 콘서트 예약서비스
+  - [project](https://github.com/users/kyun22/projects/1)
   - [Milestone](https://github.com/kyun22/hhplus_w3to5/milestones) : github 마일스톤 기능 사용 
 - 요구사항 분석 자료 및 API 명세 제출
   - [API 명세 문서](https://documenter.getpostman.com/view/31502676/2sA35HWfuJ)
