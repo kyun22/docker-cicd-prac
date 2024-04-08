@@ -1,4 +1,4 @@
-package kr.shlee.waitlist.models
+package kr.shlee.ticket.models
 
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity

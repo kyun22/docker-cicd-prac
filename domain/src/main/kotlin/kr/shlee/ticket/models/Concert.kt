@@ -1,4 +1,4 @@
-package kr.shlee.waitlist.models
+package kr.shlee.ticket.models
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

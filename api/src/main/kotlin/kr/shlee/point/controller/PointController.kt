@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 import kr.shlee.point.dto.PointRequest
 import kr.shlee.point.usecase.PointChargeUseCase
 import kr.shlee.point.usecase.PointCheckUseCase
-import kr.shlee.waitlist.models.User
+import kr.shlee.point.models.User
 
 @RestController
 @RequestMapping("/points")

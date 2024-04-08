@@ -1,7 +1,7 @@
-package kr.shlee.waitlist.infrastructure
+package kr.shlee.ticket.infrastructures
 
 import org.springframework.data.jpa.repository.JpaRepository
-import kr.shlee.waitlist.models.Event
+import kr.shlee.ticket.models.Event
 
 interface EventJpaRepository: JpaRepository<Event, String> {
     fun findByEventId(eventId: String): List<Event>

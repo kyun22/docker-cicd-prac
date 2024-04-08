@@ -1,6 +1,6 @@
 package kr.shlee.waitlist.repositories
 
-import kr.shlee.waitlist.models.User
+import kr.shlee.point.models.User
 
 interface UserRepository {
     fun findById(userId: String): User?

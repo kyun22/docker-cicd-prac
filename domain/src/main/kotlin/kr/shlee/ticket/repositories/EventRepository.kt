@@ -1,6 +1,6 @@
-package kr.shlee.waitlist.repositories
+package kr.shlee.ticket.repositories
 
-import kr.shlee.waitlist.models.Event
+import kr.shlee.ticket.models.Event
 
 interface EventRepository {
     fun findById(eventId: String): Event?

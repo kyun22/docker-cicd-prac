@@ -1,6 +1,6 @@
-package kr.shlee.waitlist.repositories
+package kr.shlee.ticket.repositories
 
-import kr.shlee.waitlist.models.Ticket
+import kr.shlee.ticket.models.Ticket
 
 interface TicketRepository {
     fun save(ticket: Ticket) : Ticket

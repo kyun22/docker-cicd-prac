@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 import kr.shlee.waitlist.dto.WaitlistRequest
 import kr.shlee.waitlist.dto.WaitlistResponse
 import kr.shlee.waitlist.models.Waitlist
-import kr.shlee.waitlist.repositories.EventRepository
+import kr.shlee.ticket.repositories.EventRepository
 import kr.shlee.waitlist.repositories.WaitListRepository
 
 @Component

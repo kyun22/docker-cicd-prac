@@ -8,10 +8,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import kr.shlee.waitlist.dto.WaitlistRequest
-import kr.shlee.waitlist.models.Concert
-import kr.shlee.waitlist.models.Event
+import kr.shlee.ticket.models.Concert
+import kr.shlee.ticket.models.Event
 import kr.shlee.waitlist.models.Waitlist
-import kr.shlee.waitlist.repositories.EventRepository
+import kr.shlee.ticket.repositories.EventRepository
 import kr.shlee.waitlist.repositories.WaitListRepository
 import kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
 import java.time.LocalDateTime

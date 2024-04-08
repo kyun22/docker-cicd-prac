@@ -2,7 +2,7 @@ package kr.shlee.point.usecase
 
 import org.springframework.stereotype.Component
 import kr.shlee.point.dto.PointRequest
-import kr.shlee.waitlist.models.User
+import kr.shlee.point.models.User
 import kr.shlee.waitlist.repositories.UserRepository
 
 @Component

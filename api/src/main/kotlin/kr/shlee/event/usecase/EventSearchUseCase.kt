@@ -5,7 +5,7 @@ import kr.shlee.advice.EventException
 import kr.shlee.event.dto.EventListResponse
 import kr.shlee.event.dto.EventResponse
 import kr.shlee.waitlist.models.Waitlist
-import kr.shlee.waitlist.repositories.EventRepository
+import kr.shlee.ticket.repositories.EventRepository
 import kr.shlee.waitlist.repositories.WaitListRepository
 import org.springframework.stereotype.Component
 

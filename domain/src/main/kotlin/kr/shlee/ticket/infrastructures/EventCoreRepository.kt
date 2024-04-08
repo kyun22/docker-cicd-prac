@@ -1,9 +1,8 @@
-package kr.shlee.waitlist.infrastructure
+package kr.shlee.ticket.infrastructures
 
 import org.springframework.stereotype.Repository
-import kr.shlee.waitlist.models.Event
-import kr.shlee.waitlist.repositories.EventRepository
-import java.util.*
+import kr.shlee.ticket.models.Event
+import kr.shlee.ticket.repositories.EventRepository
 
 @Repository
 class EventCoreRepository(
