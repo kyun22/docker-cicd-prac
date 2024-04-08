@@ -4,7 +4,7 @@ import kr.shlee.advice.PointErrorResult
 import kr.shlee.advice.PointException
 import org.springframework.stereotype.Component
 import kr.shlee.point.models.User
-import kr.shlee.waitlist.repositories.UserRepository
+import kr.shlee.point.repositories.UserRepository
 
 @Component
 class PointCheckUseCase(

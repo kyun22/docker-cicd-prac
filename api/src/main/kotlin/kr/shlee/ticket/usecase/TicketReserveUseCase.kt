@@ -7,7 +7,7 @@ import kr.shlee.ticket.models.Seat
 import kr.shlee.ticket.models.Ticket
 import kr.shlee.ticket.repositories.SeatRepository
 import kr.shlee.ticket.repositories.TicketRepository
-import kr.shlee.waitlist.repositories.UserRepository
+import kr.shlee.point.repositories.UserRepository
 
 @Component
 class TicketReserveUseCase (

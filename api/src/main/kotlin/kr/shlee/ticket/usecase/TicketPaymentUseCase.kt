@@ -5,7 +5,7 @@ import kr.shlee.ticket.dto.TicketRequest
 import kr.shlee.ticket.dto.TicketResponse
 import kr.shlee.ticket.models.Ticket
 import kr.shlee.ticket.repositories.TicketRepository
-import kr.shlee.waitlist.repositories.UserRepository
+import kr.shlee.point.repositories.UserRepository
 
 @Component
 class TicketPaymentUseCase(
