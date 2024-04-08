@@ -1,4 +1,4 @@
-package kr.shlee.waitlist.repositories
+package kr.shlee.point.repositories
 
 import kr.shlee.point.models.User
 
