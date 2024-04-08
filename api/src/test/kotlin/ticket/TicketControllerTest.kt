@@ -1,6 +1,6 @@
 package ticket
 
-import advice.ApiControllerAdvice
+import kr.shlee.kr.shlee.advice.ApiControllerAdvice
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
@@ -12,14 +12,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import ticket.controller.TicketController
-import ticket.dto.TicketRequest
-import ticket.dto.TicketResponse
-import ticket.usecase.TicketPaymentUseCase
-import ticket.usecase.TicketReserveUseCase
-import waitlist.models.Event
-import waitlist.models.Seat
-import waitlist.models.Ticket
+import kr.shlee.kr.shlee.ticket.controller.TicketController
+import kr.shlee.kr.shlee.ticket.dto.TicketRequest
+import kr.shlee.kr.shlee.ticket.dto.TicketResponse
+import kr.shlee.kr.shlee.ticket.usecase.TicketPaymentUseCase
+import kr.shlee.kr.shlee.ticket.usecase.TicketReserveUseCase
+import kr.shlee.waitlist.models.Event
+import kr.shlee.waitlist.models.Seat
+import kr.shlee.waitlist.models.Ticket
 import java.time.LocalDateTime
 import kotlin.test.Test
 

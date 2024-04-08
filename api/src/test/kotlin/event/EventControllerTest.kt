@@ -1,12 +1,12 @@
 package event
 
-import advice.ApiControllerAdvice
-import advice.EventErrorResult
-import advice.EventException
-import event.controller.EventController
-import event.dto.EventResponse
-import event.dto.SeatVo
-import event.usecase.EventSearchUseCase
+import kr.shlee.kr.shlee.advice.ApiControllerAdvice
+import kr.shlee.kr.shlee.advice.EventErrorResult
+import kr.shlee.kr.shlee.advice.EventException
+import kr.shlee.kr.shlee.event.controller.EventController
+import kr.shlee.kr.shlee.event.dto.EventResponse
+import kr.shlee.kr.shlee.event.dto.SeatVo
+import kr.shlee.kr.shlee.event.usecase.EventSearchUseCase
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import waitlist.models.Event
-import waitlist.models.Seat
+import kr.shlee.waitlist.models.Event
+import kr.shlee.waitlist.models.Seat
 import java.time.LocalDateTime
 import kotlin.test.Test
 
