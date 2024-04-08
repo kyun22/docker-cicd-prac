@@ -1,12 +1,12 @@
 package event
 
-import kr.shlee.kr.shlee.advice.ApiControllerAdvice
-import kr.shlee.kr.shlee.advice.EventErrorResult
-import kr.shlee.kr.shlee.advice.EventException
-import kr.shlee.kr.shlee.event.controller.EventController
-import kr.shlee.kr.shlee.event.dto.EventResponse
-import kr.shlee.kr.shlee.event.dto.SeatVo
-import kr.shlee.kr.shlee.event.usecase.EventSearchUseCase
+import kr.shlee.advice.ApiControllerAdvice
+import kr.shlee.advice.EventErrorResult
+import kr.shlee.advice.EventException
+import kr.shlee.event.controller.EventController
+import kr.shlee.event.dto.EventResponse
+import kr.shlee.event.dto.SeatVo
+import kr.shlee.event.usecase.EventSearchUseCase
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach

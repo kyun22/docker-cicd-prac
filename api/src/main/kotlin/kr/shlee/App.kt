@@ -1,4 +1,4 @@
-package kr.shlee.kr.shlee
+package kr.shlee
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

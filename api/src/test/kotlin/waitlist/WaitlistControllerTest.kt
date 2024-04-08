@@ -1,8 +1,8 @@
 package waitlist
 
-import kr.shlee.kr.shlee.advice.ApiControllerAdvice
-import kr.shlee.kr.shlee.advice.WaitlistErrorResult
-import kr.shlee.kr.shlee.advice.WaitlistException
+import kr.shlee.advice.ApiControllerAdvice
+import kr.shlee.advice.WaitlistErrorResult
+import kr.shlee.advice.WaitlistException
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
@@ -15,12 +15,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import kr.shlee.kr.shlee.waitlist.controller.WaitlistController
-import kr.shlee.kr.shlee.waitlist.dto.WaitlistRequest
-import kr.shlee.kr.shlee.waitlist.dto.WaitlistResponse
+import kr.shlee.waitlist.controller.WaitlistController
+import kr.shlee.waitlist.dto.WaitlistRequest
+import kr.shlee.waitlist.dto.WaitlistResponse
 import kr.shlee.waitlist.models.Waitlist
-import kr.shlee.kr.shlee.waitlist.usecase.WaitlistCheckOrderUseCase
-import kr.shlee.kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
+import kr.shlee.waitlist.usecase.WaitlistCheckOrderUseCase
+import kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
 import java.util.UUID
 
 class WaitlistControllerTest {

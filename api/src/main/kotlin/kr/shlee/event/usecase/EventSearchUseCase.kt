@@ -1,9 +1,9 @@
-package kr.shlee.kr.shlee.event.usecase
+package kr.shlee.event.usecase
 
-import kr.shlee.kr.shlee.advice.EventErrorResult
-import kr.shlee.kr.shlee.advice.EventException
-import kr.shlee.kr.shlee.event.dto.EventListResponse
-import kr.shlee.kr.shlee.event.dto.EventResponse
+import kr.shlee.advice.EventErrorResult
+import kr.shlee.advice.EventException
+import kr.shlee.event.dto.EventListResponse
+import kr.shlee.event.dto.EventResponse
 import org.springframework.stereotype.Component
 import kr.shlee.waitlist.models.Waitlist
 import kr.shlee.waitlist.repositories.EventRepository

@@ -1,4 +1,4 @@
-package kr.shlee.kr.shlee.advice
+package kr.shlee.advice
 
 import org.springframework.http.HttpStatus
 

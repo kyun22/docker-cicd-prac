@@ -1,4 +1,4 @@
-package kr.shlee.kr.shlee.point.dto
+package kr.shlee.point.dto
 
 class PointRequest {
     data class Charge(

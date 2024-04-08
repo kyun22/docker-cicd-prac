@@ -1,8 +1,8 @@
-package kr.shlee.kr.shlee.ticket.usecase
+package kr.shlee.ticket.usecase
 
 import org.springframework.stereotype.Component
-import kr.shlee.kr.shlee.ticket.dto.TicketRequest
-import kr.shlee.kr.shlee.ticket.dto.TicketResponse
+import kr.shlee.ticket.dto.TicketRequest
+import kr.shlee.ticket.dto.TicketResponse
 import kr.shlee.waitlist.models.Ticket
 import kr.shlee.waitlist.repositories.TicketRepository
 import kr.shlee.waitlist.repositories.UserRepository

@@ -1,10 +1,10 @@
-package kr.shlee.kr.shlee.waitlist.usecase
+package kr.shlee.waitlist.usecase
 
-import kr.shlee.kr.shlee.advice.WaitlistErrorResult
-import kr.shlee.kr.shlee.advice.WaitlistException
+import kr.shlee.advice.WaitlistErrorResult
+import kr.shlee.advice.WaitlistException
 import org.springframework.stereotype.Component
-import kr.shlee.kr.shlee.waitlist.dto.WaitlistRequest
-import kr.shlee.kr.shlee.waitlist.dto.WaitlistResponse
+import kr.shlee.waitlist.dto.WaitlistRequest
+import kr.shlee.waitlist.dto.WaitlistResponse
 import kr.shlee.waitlist.models.Waitlist
 import kr.shlee.waitlist.repositories.EventRepository
 import kr.shlee.waitlist.repositories.WaitListRepository

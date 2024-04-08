@@ -1,4 +1,4 @@
-package kr.shlee.kr.shlee.waitlist.dto
+package kr.shlee.waitlist.dto
 
 import kr.shlee.waitlist.models.Waitlist
 

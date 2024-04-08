@@ -1,4 +1,4 @@
-package kr.shlee.kr.shlee.ticket.dto
+package kr.shlee.ticket.dto
 
 import kr.shlee.waitlist.models.Ticket
 

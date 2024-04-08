@@ -7,12 +7,12 @@ import io.mockk.junit5.MockKExtension
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import kr.shlee.kr.shlee.waitlist.dto.WaitlistRequest
+import kr.shlee.waitlist.dto.WaitlistRequest
 import kr.shlee.waitlist.models.Event
 import kr.shlee.waitlist.models.Waitlist
 import kr.shlee.waitlist.repositories.EventRepository
 import kr.shlee.waitlist.repositories.WaitListRepository
-import kr.shlee.kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
+import kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
 import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)

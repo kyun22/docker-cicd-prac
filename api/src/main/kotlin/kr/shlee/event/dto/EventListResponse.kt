@@ -1,4 +1,4 @@
-package kr.shlee.kr.shlee.event.dto
+package kr.shlee.event.dto
 
 import kr.shlee.waitlist.models.Event
 import kr.shlee.waitlist.models.Seat

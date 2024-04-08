@@ -1,7 +1,7 @@
-package kr.shlee.kr.shlee.point.usecase
+package kr.shlee.point.usecase
 
-import kr.shlee.kr.shlee.advice.PointErrorResult
-import kr.shlee.kr.shlee.advice.PointException
+import kr.shlee.advice.PointErrorResult
+import kr.shlee.advice.PointException
 import org.springframework.stereotype.Component
 import kr.shlee.waitlist.models.User
 import kr.shlee.waitlist.repositories.UserRepository

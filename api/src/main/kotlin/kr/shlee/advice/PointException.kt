@@ -1,4 +1,6 @@
-package kr.shlee.kr.shlee.advice
+package kr.shlee.advice
+
+import kr.shlee.advice.PointErrorResult
 
 class PointException (
     val errorResult: PointErrorResult

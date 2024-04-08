@@ -1,8 +1,8 @@
 package point
 
-import kr.shlee.kr.shlee.advice.ApiControllerAdvice
-import kr.shlee.kr.shlee.advice.PointErrorResult
-import kr.shlee.kr.shlee.advice.PointException
+import kr.shlee.advice.ApiControllerAdvice
+import kr.shlee.advice.PointErrorResult
+import kr.shlee.advice.PointException
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
@@ -15,10 +15,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import kr.shlee.kr.shlee.point.controller.PointController
-import kr.shlee.kr.shlee.point.dto.PointRequest
-import kr.shlee.kr.shlee.point.usecase.PointChargeUseCase
-import kr.shlee.kr.shlee.point.usecase.PointCheckUseCase
+import kr.shlee.point.controller.PointController
+import kr.shlee.point.dto.PointRequest
+import kr.shlee.point.usecase.PointChargeUseCase
+import kr.shlee.point.usecase.PointCheckUseCase
 import kr.shlee.waitlist.models.User
 import kotlin.test.Test
 
