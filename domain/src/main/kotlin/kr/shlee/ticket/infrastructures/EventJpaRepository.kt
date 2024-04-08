@@ -4,5 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import kr.shlee.ticket.models.Event
 
 interface EventJpaRepository: JpaRepository<Event, String> {
-    fun findByEventId(eventId: String): List<Event>
 }

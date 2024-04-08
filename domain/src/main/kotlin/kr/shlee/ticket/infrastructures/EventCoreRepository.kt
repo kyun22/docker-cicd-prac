@@ -16,10 +16,6 @@ class EventCoreRepository(
         TODO("Not yet implemented")
     }
 
-    // todo, 이거 지우고 id로 찾는 api 새로 만들?
-    override fun findByEventId(eventId: String): List<Event> {
-        return eventJpaRepository.findByEventId(eventId)
-    }
 
     override fun findAll(): List<Event> {
         return eventJpaRepository.findAll()
