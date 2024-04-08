@@ -5,18 +5,16 @@ import kr.shlee.waitlist.models.Waitlist
 data class WaitlistResponse(
     val token: String,
     val userId: String,
-    val eventId: String,
-    val position: Int,
+    val no: Long?,
     val status: Waitlist.Status
 ) {
     companion object {
         fun of(waitlist: Waitlist): WaitlistResponse {
             return WaitlistResponse(
-                token = waitlist.id,
+                token = waitlist.token,
                 userId = waitlist.userId,
-                eventId = waitlist.eventId,
                 status = waitlist.status,
-                position = 0
+                no = waitlist.id
             )
         }
     }

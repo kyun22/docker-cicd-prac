@@ -4,22 +4,20 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import kr.shlee.point.models.User
+import kr.shlee.point.repositories.UserRepository
+import kr.shlee.waitlist.dto.WaitlistRequest
+import kr.shlee.waitlist.models.Waitlist
+import kr.shlee.waitlist.repositories.WaitListRepository
+import kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import kr.shlee.waitlist.dto.WaitlistRequest
-import kr.shlee.ticket.models.Concert
-import kr.shlee.ticket.models.Event
-import kr.shlee.waitlist.models.Waitlist
-import kr.shlee.ticket.repositories.EventRepository
-import kr.shlee.waitlist.repositories.WaitListRepository
-import kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
-import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)
 class WaitlistRegisterUseCaseTest {
     @MockK
-    private lateinit var eventRepository: EventRepository
+    private lateinit var userRepository: UserRepository
 
     @MockK
     private lateinit var waitListRepository: WaitListRepository
@@ -30,9 +28,9 @@ class WaitlistRegisterUseCaseTest {
     @Test
     fun `userId로 토큰을 발급한다`() {
         //given
-        every { eventRepository.findById("event1") } returns Event("event1", "서울", LocalDateTime.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
-        every { waitListRepository.findByUserIdAndEventId("user1", "event1") } returns null
-        every { waitListRepository.save(any())} returns Waitlist.newOf("user1", "event1")
+        every { userRepository.findById("user1") } returns User("user1", 0)
+        every { waitListRepository.findByUserId("user1") } returns null
+        every { waitListRepository.save(any())} returns Waitlist.newOf("user1")
         val request: WaitlistRequest = WaitlistRequest("user1", "event1")
 
         //when
@@ -40,7 +38,6 @@ class WaitlistRegisterUseCaseTest {
 
         //then
         assertThat(response.userId).isEqualTo("user1")
-        assertThat(response.eventId).isEqualTo("event1")
         assertThat(response.status).isEqualTo(Waitlist.Status.WAITING)
 
     }

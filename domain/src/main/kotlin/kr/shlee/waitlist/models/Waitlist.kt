@@ -1,11 +1,18 @@
 package kr.shlee.waitlist.models
 
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 import java.time.LocalDateTime
+import java.util.*
 
+@Entity
 class Waitlist(
-    val id: String,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long?,
+    val token: String,
     val userId: String,
-    val eventId: String,
     val createdAt: LocalDateTime,
     val expiredAt: LocalDateTime?,
     val status: Status
@@ -17,11 +24,11 @@ class Waitlist(
     }
 
     companion object {
-        fun newOf(userId: String, eventId: String): Waitlist {
+        fun newOf(userId: String): Waitlist {
             return Waitlist(
-                id = "",
+                id = null,
+                token = UUID.randomUUID().toString(),
                 userId = userId,
-                eventId = eventId,
                 createdAt = LocalDateTime.now(),
                 expiredAt = null,
                 status = Status.WAITING
