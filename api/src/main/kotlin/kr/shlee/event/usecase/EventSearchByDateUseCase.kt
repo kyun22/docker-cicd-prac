@@ -10,18 +10,21 @@ import kr.shlee.waitlist.repositories.WaitListRepository
 import org.springframework.stereotype.Component
 
 @Component
-class EventSearchUseCase(
+class EventSearchByDateUseCase(
     val eventRepository: EventRepository,
     val waitListRepository: WaitListRepository
 ) {
-    fun execute(token: String?): List<EventResponse> {
+    fun execute(token: String?, dateString: String): List<EventResponse> {
         // 토큰 유효성을 검증
         if (token != null) {
             val waitlist = waitListRepository.findById(token) ?: throw EventException(EventErrorResult.MISSING_TOKEN)
             if (waitlist.status != Waitlist.Status.AVAILABLE) throw EventException(EventErrorResult.INVALID_TOKEN)
         }
 
-        return EventListResponse.newOf(eventRepository.findAll()).toList()
+        // todo, dateString 파싱
+        val events = eventRepository.findByDate(dateString)
+        return EventListResponse.newOf(events).toList()
     }
+
 
 }

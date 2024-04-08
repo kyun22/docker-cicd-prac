@@ -8,9 +8,11 @@ class Event(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: String,
-    val name: String,
     val location: String,
     val date: LocalDateTime,
+
+    @ManyToOne
+    val concert: Concert,
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val seats: MutableList<Seat> = mutableListOf()

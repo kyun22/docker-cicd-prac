@@ -12,14 +12,7 @@ class EventListResponse(
             val list = mutableListOf<EventResponse>()
             events.map { event: Event ->
                 list.add(
-                    EventResponse(
-                        id = event.id,
-                        name = event.name,
-                        localtion = event.location,
-                        availableSeats = event.getAvailableSeatCount(),
-                        seats = EventResponse.convertSeatsToVo(event.seats),
-                        date = event.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                    )
+                    EventResponse.newOf(event)
                 )
             }
             return list
@@ -30,7 +23,7 @@ class EventListResponse(
 data class EventResponse(
     val id: String,
     val name: String,
-    val localtion: String,
+    val location: String,
     val availableSeats: Int,
     val seats: List<SeatVo>,
     val date: String
@@ -38,6 +31,17 @@ data class EventResponse(
     companion object {
         fun convertSeatsToVo(seats: MutableList<Seat>): List<SeatVo> {
             return seats.map { seat: Seat -> SeatVo.of(seat) }
+        }
+
+        fun newOf(event: Event): EventResponse {
+            return EventResponse(
+                id = event.id,
+                name = event.concert.name,
+                location = event.location,
+                availableSeats = event.getAvailableSeatCount(),
+                seats = convertSeatsToVo(event.seats),
+                date = event.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                )
         }
     }
 }

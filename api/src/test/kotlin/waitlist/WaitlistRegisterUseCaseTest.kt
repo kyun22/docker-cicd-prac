@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import kr.shlee.waitlist.dto.WaitlistRequest
+import kr.shlee.waitlist.models.Concert
 import kr.shlee.waitlist.models.Event
 import kr.shlee.waitlist.models.Waitlist
 import kr.shlee.waitlist.repositories.EventRepository
@@ -29,7 +30,7 @@ class WaitlistRegisterUseCaseTest {
     @Test
     fun `userId로 토큰을 발급한다`() {
         //given
-        every { eventRepository.findById("event1") } returns Event("event1", "name", "location", LocalDateTime.now())
+        every { eventRepository.findById("event1") } returns Event("event1", "서울", LocalDateTime.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
         every { waitListRepository.findByUserIdAndEventId("user1", "event1") } returns null
         every { waitListRepository.save(any())} returns Waitlist.newOf("user1", "event1")
         val request: WaitlistRequest = WaitlistRequest("user1", "event1")
