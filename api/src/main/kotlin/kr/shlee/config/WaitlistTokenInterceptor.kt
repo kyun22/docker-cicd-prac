@@ -12,8 +12,7 @@ class WaitlistTokenInterceptor(
 ) : HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val tokenString = request.getHeader("X-USER-TOKEN")
-        if (!tokenValidator.validate(tokenString))
-            throw EventException(EventErrorResult.INVALID_TOKEN)
+        if (!tokenValidator.validate(tokenString)) throw EventException(EventErrorResult.INVALID_TOKEN)
         return tokenValidator.validate(tokenString)
     }
 }
