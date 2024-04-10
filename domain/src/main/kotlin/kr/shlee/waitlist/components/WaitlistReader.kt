@@ -20,4 +20,8 @@ class WaitlistReader (
     fun getAvailableCount(): Long {
         return waitListRepository.getAvailableCount()
     }
+
+    fun findByToken(token: String): Waitlist? {
+        return waitListRepository.findByToken(token)
+    }
 }

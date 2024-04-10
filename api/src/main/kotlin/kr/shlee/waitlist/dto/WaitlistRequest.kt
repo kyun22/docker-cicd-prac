@@ -6,6 +6,6 @@ class WaitlistRequest{
     )
 
     data class Position(
-        val userId: String,
+        val token: String,
     )
 }

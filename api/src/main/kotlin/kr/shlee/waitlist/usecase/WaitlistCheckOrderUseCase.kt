@@ -13,7 +13,7 @@ class WaitlistCheckOrderUseCase(
 ) {
     fun execute(request: WaitlistRequest.Position): WaitlistResponse.Position {
         val waitlist =
-            waitlistReader.find(request.userId) ?: throw WaitlistException(WaitlistErrorResult.USER_NOT_FOUND)
+            waitlistReader.findByToken(request.token) ?: throw WaitlistException(WaitlistErrorResult.UNREGISTERED_USER)
 
         val position = waitlistReader.getLastAvailableWaitlist()
             ?.let { waitlist.getPositionFromLastWaitlist(it) }
