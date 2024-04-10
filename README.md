@@ -1,5 +1,9 @@
 ## Chapter2. 서버구축 (3-5주차)
 
+### week4
+#### Swagger 적용 캡처사진
+![img.png](resources/diagrams/images/swagger-screenshot.png)
+
 ### week3
 #### Step5. 요구사항 설계 및 Milestone
 - 시나리오 선정 및 마일스톤 제출
