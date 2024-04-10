@@ -1,4 +1,4 @@
-package event
+package kr.shlee.event
 
 import kr.shlee.advice.ApiControllerAdvice
 import kr.shlee.event.controller.EventController

@@ -1,4 +1,4 @@
-package point
+package kr.shlee.point
 
 import kr.shlee.advice.ApiControllerAdvice
 import kr.shlee.advice.PointErrorResult

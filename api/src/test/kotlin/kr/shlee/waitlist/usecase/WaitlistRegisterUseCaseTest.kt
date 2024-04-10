@@ -1,4 +1,4 @@
-package waitlist
+package kr.shlee.waitlist.usecase
 
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs

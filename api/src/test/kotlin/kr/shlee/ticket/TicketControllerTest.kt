@@ -1,4 +1,4 @@
-package ticket
+package kr.shlee.ticket
 
 import kr.shlee.advice.ApiControllerAdvice
 import com.fasterxml.jackson.databind.ObjectMapper

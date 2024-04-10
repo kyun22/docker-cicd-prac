@@ -1,10 +1,9 @@
-package waitlist
+package kr.shlee.waitlist.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
 import kr.shlee.advice.ApiControllerAdvice
-import kr.shlee.waitlist.controller.WaitlistController
 import kr.shlee.waitlist.dto.WaitlistRequest
 import kr.shlee.waitlist.dto.WaitlistResponse
 import kr.shlee.waitlist.models.Waitlist
