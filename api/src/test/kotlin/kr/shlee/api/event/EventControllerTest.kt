@@ -59,7 +59,7 @@ class EventControllerTest {
         every {
             eventSearchUseCase.execute("token0")
         } throws EventException(EventErrorResult.INVALID_TOKEN)
-        val resultActions = mockMvc.perform(
+        mockMvc.perform(
             get("/events")
                 .header("X-USER-TOKEN", "token0")
                 .param("date", "2024-03-25")

@@ -3,6 +3,7 @@ package kr.shlee.domain.point.model
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
+import kr.shlee.domain.common.error.UserException
 
 @Entity
 class User(
@@ -16,12 +17,13 @@ class User(
     }
 
     fun subtractPoint(amount: Int) {
+        if (point < amount) throw UserException(UserException.UserErrorResult.LACK_OF_POINT)
         this.point -= amount
     }
 
     companion object {
-        fun newInstance(): User {
-            return User(null, 0)
+        fun newInstance(userId: String): User {
+            return User(userId, 0)
         }
 
     }
