@@ -1,7 +1,7 @@
 package kr.shlee.waitlist
 
 import kr.shlee.config.WaitlistTokenInterceptor
-import kr.shlee.waitlist.components.WaitlistTokenValidator
+import kr.shlee.waitlist.component.WaitlistTokenValidator
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito

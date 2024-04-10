@@ -6,7 +6,7 @@ import io.mockk.mockk
 import kr.shlee.advice.ApiControllerAdvice
 import kr.shlee.waitlist.dto.WaitlistRequest
 import kr.shlee.waitlist.dto.WaitlistResponse
-import kr.shlee.waitlist.models.Waitlist
+import kr.shlee.waitlist.model.Waitlist
 import kr.shlee.waitlist.usecase.WaitlistCheckOrderUseCase
 import kr.shlee.waitlist.usecase.WaitlistRegisterUseCase
 import org.junit.jupiter.api.BeforeEach

@@ -11,7 +11,7 @@ import kr.shlee.advice.EventErrorResult
 import kr.shlee.advice.EventException
 import kr.shlee.event.usecase.EventSearchByDateUseCase
 import kr.shlee.event.usecase.EventSearchUseCase
-import kr.shlee.ticket.models.Concert
+import kr.shlee.ticket.model.Concert
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import kr.shlee.ticket.models.Event
-import kr.shlee.ticket.models.Seat
+import kr.shlee.ticket.model.Event
+import kr.shlee.ticket.model.Seat
 import java.time.LocalDateTime
 import kotlin.test.Test
 

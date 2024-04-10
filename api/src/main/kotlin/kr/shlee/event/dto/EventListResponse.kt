@@ -1,7 +1,7 @@
 package kr.shlee.event.dto
 
-import kr.shlee.ticket.models.Event
-import kr.shlee.ticket.models.Seat
+import kr.shlee.ticket.model.Event
+import kr.shlee.ticket.model.Seat
 import java.time.format.DateTimeFormatter
 
 class EventListResponse(

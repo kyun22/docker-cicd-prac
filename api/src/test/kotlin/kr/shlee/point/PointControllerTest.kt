@@ -19,7 +19,7 @@ import kr.shlee.point.controller.PointController
 import kr.shlee.point.dto.PointRequest
 import kr.shlee.point.usecase.PointChargeUseCase
 import kr.shlee.point.usecase.PointCheckUseCase
-import kr.shlee.point.models.User
+import kr.shlee.point.model.User
 import kotlin.test.Test
 
 class PointControllerTest {

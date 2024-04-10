@@ -3,8 +3,8 @@ package kr.shlee.point.usecase
 import kr.shlee.advice.PointErrorResult
 import kr.shlee.advice.PointException
 import org.springframework.stereotype.Component
-import kr.shlee.point.models.User
-import kr.shlee.point.repositories.UserRepository
+import kr.shlee.point.model.User
+import kr.shlee.point.repository.UserRepository
 
 @Component
 class PointCheckUseCase(

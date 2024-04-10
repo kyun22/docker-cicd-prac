@@ -4,11 +4,10 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
-import kr.shlee.waitlist.components.WaitlistReader
+import kr.shlee.waitlist.component.WaitlistReader
 import kr.shlee.waitlist.dto.WaitlistRequest
-import kr.shlee.waitlist.models.Waitlist
+import kr.shlee.waitlist.model.Waitlist
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
 import java.time.LocalDateTime
 import kotlin.test.Test

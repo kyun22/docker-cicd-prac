@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import kr.shlee.advice.EventErrorResult
 import kr.shlee.advice.EventException
-import kr.shlee.waitlist.components.WaitlistTokenValidator
+import kr.shlee.waitlist.component.WaitlistTokenValidator
 import org.springframework.web.servlet.HandlerInterceptor
 
 class WaitlistTokenInterceptor(

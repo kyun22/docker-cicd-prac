@@ -2,12 +2,12 @@ package kr.shlee.waitlist.usecase
 
 import kr.shlee.advice.WaitlistErrorResult
 import kr.shlee.advice.WaitlistException
-import kr.shlee.point.repositories.UserRepository
-import kr.shlee.waitlist.components.WaitlistAppender
-import kr.shlee.waitlist.components.WaitlistReader
+import kr.shlee.point.repository.UserRepository
+import kr.shlee.waitlist.component.WaitlistAppender
+import kr.shlee.waitlist.component.WaitlistReader
 import kr.shlee.waitlist.dto.WaitlistRequest
 import kr.shlee.waitlist.dto.WaitlistResponse
-import kr.shlee.waitlist.models.Waitlist
+import kr.shlee.waitlist.model.Waitlist
 import org.springframework.stereotype.Component
 
 @Component
@@ -18,6 +18,7 @@ class WaitlistRegisterUseCase(
 ) {
     private val max_available_count: Long = 50L
 
+    // todo, transactional 처리 : 전체로 걸고, 하위 컴포넌트로 줄여도될지 체크
     fun execute(request: WaitlistRequest.Register): WaitlistResponse.Register {
         // user가 존재하는지 체크
         userRepository.findById(request.userId) ?: throw WaitlistException(WaitlistErrorResult.USER_NOT_FOUND)

@@ -1,6 +1,6 @@
 package kr.shlee.ticket.dto
 
-import kr.shlee.ticket.models.Ticket
+import kr.shlee.ticket.model.Ticket
 
 class TicketResponse {
 

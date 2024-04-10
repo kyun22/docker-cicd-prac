@@ -12,8 +12,6 @@
   - [Milestone](https://github.com/kyun22/hhplus_w3to5/milestones) : github 마일스톤 기능 사용 
 - 요구사항 분석 자료 및 API 명세 제출
   - [API 명세 문서](https://documenter.getpostman.com/view/31502676/2sA35HWfuJ)
-
-> 다이어그램은 mermaid 사용, 무료버전 5개 한계라서, /resources/diagrams/mermaid에 동명의 .txt파일로 저장
  
 ##### 토큰 발급 시퀀스 다이어그램
 ![img.png](resources/diagrams/images/generate-token-seq.png)
@@ -23,6 +21,10 @@
 
 ##### 대기순번 조회 시퀀스 다이어그램
 ![img.png](resources/diagrams/images/check-waiting-position-seq.png)
+
+##### 포인트 충전 시퀀스 다이어그램
+
+##### 포인트 조회 시퀀스 다이어그램
 
 ##### 콘서트 조회 시퀀스 다이어그램
 ![img.png](resources/diagrams/images/search-concert-info-seq.png)

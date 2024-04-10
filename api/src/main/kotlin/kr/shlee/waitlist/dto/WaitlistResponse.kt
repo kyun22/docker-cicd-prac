@@ -1,6 +1,6 @@
 package kr.shlee.waitlist.dto
 
-import kr.shlee.waitlist.models.Waitlist
+import kr.shlee.waitlist.model.Waitlist
 
 class WaitlistResponse {
     data class Register(

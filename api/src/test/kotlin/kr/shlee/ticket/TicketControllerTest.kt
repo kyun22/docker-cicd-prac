@@ -17,10 +17,10 @@ import kr.shlee.ticket.dto.TicketRequest
 import kr.shlee.ticket.dto.TicketResponse
 import kr.shlee.ticket.usecase.TicketPaymentUseCase
 import kr.shlee.ticket.usecase.TicketReserveUseCase
-import kr.shlee.ticket.models.Concert
-import kr.shlee.ticket.models.Event
-import kr.shlee.ticket.models.Seat
-import kr.shlee.ticket.models.Ticket
+import kr.shlee.ticket.model.Concert
+import kr.shlee.ticket.model.Event
+import kr.shlee.ticket.model.Seat
+import kr.shlee.ticket.model.Ticket
 import java.time.LocalDateTime
 import kotlin.test.Test
 

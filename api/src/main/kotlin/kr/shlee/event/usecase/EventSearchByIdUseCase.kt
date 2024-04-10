@@ -3,7 +3,7 @@ package kr.shlee.event.usecase
 import kr.shlee.advice.EventErrorResult
 import kr.shlee.advice.EventException
 import kr.shlee.event.dto.EventResponse
-import kr.shlee.ticket.repositories.EventRepository
+import kr.shlee.ticket.repository.EventRepository
 import org.springframework.stereotype.Component
 
 @Component

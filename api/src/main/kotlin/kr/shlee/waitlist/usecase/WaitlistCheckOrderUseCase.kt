@@ -2,7 +2,7 @@ package kr.shlee.waitlist.usecase
 
 import kr.shlee.advice.WaitlistErrorResult
 import kr.shlee.advice.WaitlistException
-import kr.shlee.waitlist.components.WaitlistReader
+import kr.shlee.waitlist.component.WaitlistReader
 import kr.shlee.waitlist.dto.WaitlistRequest
 import kr.shlee.waitlist.dto.WaitlistResponse
 import org.springframework.stereotype.Component

@@ -1,6 +1,6 @@
 package kr.shlee.config
 
-import kr.shlee.waitlist.components.WaitlistTokenValidator
+import kr.shlee.waitlist.component.WaitlistTokenValidator
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
