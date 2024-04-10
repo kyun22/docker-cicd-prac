@@ -1,19 +1,20 @@
-package kr.shlee.waitlist.infrastructure
+package kr.shlee.domain.waitlist.infrastructure
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import jakarta.transaction.Transactional
-import kr.shlee.waitlist.model.QWaitlist
-import kr.shlee.waitlist.model.Waitlist
+import kr.shlee.domain.DomainTestConfiguration
+import kr.shlee.domain.waitlist.model.QWaitlist
+import kr.shlee.domain.waitlist.model.Waitlist
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.Test
 
-@SpringBootTest
 @Transactional
+@SpringBootTest(classes = [DomainTestConfiguration::class])
 class WaitlistCustomRepositoryTest {
     @PersistenceContext
     lateinit var entityManager: EntityManager
