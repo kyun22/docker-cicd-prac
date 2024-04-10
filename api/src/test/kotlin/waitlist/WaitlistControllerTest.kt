@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -43,8 +44,8 @@ class WaitlistControllerTest {
     @Test
     fun `mock - 토큰을 발급한다`() {
         //given
-        val request = WaitlistRequest("user1", "event1")
-        every { waitlistRegisterUseCase.execute(request) } returns WaitlistResponse(
+        val request = WaitlistRequest.Register("user1")
+        every { waitlistRegisterUseCase.execute(request) } returns WaitlistResponse.Register(
             token = UUID.randomUUID().toString(),
             userId = request.userId,
             status = Waitlist.Status.WAITING,
@@ -54,9 +55,9 @@ class WaitlistControllerTest {
 
         //when
         mockMvc.perform(
-            post("/waitlist")
-                .content(json)
+            post("/waitlist/register")
                 .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
         )
             //then
             .andExpect(status().isOk)
@@ -65,24 +66,24 @@ class WaitlistControllerTest {
     }
 
 
-//    @Test
-//    fun `mock - 대기순번을 조회한다`() {
-//        //given
-//        every { waitlistCheckOrderUseCase.execute("user1", "event1") } returns WaitlistResponse(
-//            token = UUID.randomUUID().toString(),
-//            userId = "user1",
-//            eventId = "event1",
-//            position = 0,
-//            status = Waitlist.Status.WAITING
-//        )
-//
-//        //when
-//        mockMvc.perform(get("/waitlist/{userId}/{eventId}", "user1", "event1"))
-//            //then
-//            .andExpect(status().isOk)
-//            .andExpect(jsonPath("userId").value("user1"))
-//            .andDo(print())
-//    }
+    @Test
+    fun `mock - 대기순번을 조회한다`() {
+        //given
+        val request = WaitlistRequest.Position("user1")
+        val json = objectMapper.writeValueAsString(request)
+        every { waitlistCheckOrderUseCase.execute(request) } returns WaitlistResponse.Position(
+            position = 2,
+        )
+
+        //when
+        mockMvc.perform(get("/waitlist/position")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            //then
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("position").value(2))
+            .andDo(print())
+    }
 
 }
 

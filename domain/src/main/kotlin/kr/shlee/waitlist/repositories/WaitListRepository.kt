@@ -7,5 +7,7 @@ interface WaitListRepository {
     fun findById(id:Long): Waitlist?
     fun findByUserId(userId: String): Waitlist?
     fun findByToken(token: String): Waitlist?
+    fun getLastAvailableWaitlist(): Waitlist?
+    fun getAvailableCount(): Long
 }
 

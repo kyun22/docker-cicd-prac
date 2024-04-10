@@ -15,7 +15,7 @@ class Waitlist(
     val userId: String,
     val createdAt: LocalDateTime,
     val expiredAt: LocalDateTime?,
-    val status: Status
+    var status: Status
 ) {
     enum class Status {
         AVAILABLE, WAITING, EXPIRED,
@@ -34,6 +34,14 @@ class Waitlist(
                 status = Status.WAITING
             )
         }
+    }
+
+    fun changeStatus(status: Status) {
+        this.status = status
+    }
+
+    fun getPositionFromLastWaitlist(lastWaitlist: Waitlist): Long {
+        return lastWaitlist.id!!.minus(this.id!!)
     }
 }
 

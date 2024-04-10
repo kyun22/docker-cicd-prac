@@ -1,6 +1,11 @@
 package kr.shlee.waitlist.dto
 
-data class WaitlistRequest(
-    val userId: String,
-    val eventId: String
-)
+class WaitlistRequest{
+    data class Register(
+        val userId: String,
+    )
+
+    data class Position(
+        val userId: String,
+    )
+}

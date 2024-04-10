@@ -19,6 +19,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+    // 빈 못찾음
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation ("com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta")
     kapt("com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
     kapt("jakarta.annotation:jakarta.annotation-api")

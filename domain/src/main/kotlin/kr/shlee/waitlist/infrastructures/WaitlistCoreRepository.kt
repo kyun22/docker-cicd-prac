@@ -6,7 +6,8 @@ import kr.shlee.waitlist.repositories.WaitListRepository
 
 @Repository
 class WaitlistCoreRepository(
-    val waitlistJpaRepository: WaitlistJpaRepository
+    val waitlistJpaRepository: WaitlistJpaRepository,
+    val waitlistCustomRepository: WaitlistCustomRepository
 ) : WaitListRepository {
 
     override fun save(waitlist: Waitlist): Waitlist {
@@ -23,5 +24,13 @@ class WaitlistCoreRepository(
 
     override fun findByToken(token: String): Waitlist? {
         return waitlistJpaRepository.findByToken(token).orElse(null)
+    }
+
+    override fun getLastAvailableWaitlist(): Waitlist? {
+        return waitlistCustomRepository.getLastAvailableWaitlist()
+    }
+
+    override fun getAvailableCount(): Long {
+        return waitlistCustomRepository.getAvailableCount()
     }
 }
