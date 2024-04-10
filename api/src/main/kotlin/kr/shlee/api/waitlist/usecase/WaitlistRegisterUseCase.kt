@@ -31,7 +31,7 @@ class WaitlistRegisterUseCase(
 
         // 상태 체크 : available, waiting
         if (waitlistReader.getAvailableCount() < max_available_count)
-            waitlist.apply { changeStatus(Waitlist.Status.AVAILABLE) }
+            waitlist.changeStatus(Waitlist.Status.AVAILABLE)
 
         // 토큰 발급 응답
         return WaitlistResponse.Register.of(waitlist)
