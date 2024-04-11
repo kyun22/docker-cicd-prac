@@ -4,13 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
 import kr.shlee.api.advice.ApiControllerAdvice
-import kr.shlee.api.advice.PointErrorResult
-import kr.shlee.api.advice.PointException
 import kr.shlee.domain.point.model.User
 import kr.shlee.api.point.controller.PointController
 import kr.shlee.api.point.dto.PointRequest
 import kr.shlee.api.point.usecase.PointChargeUseCase
 import kr.shlee.api.point.usecase.PointCheckUseCase
+import kr.shlee.domain.common.error.PointException
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -57,7 +56,7 @@ class PointControllerTest {
 
     @Test
     fun `포인트 조회 실패 - 존재하지 않는 유저`(){
-        every { pointCheckUseCase.execute("user0") } throws PointException(PointErrorResult.USER_NOT_EXISTS)
+        every { pointCheckUseCase.execute("user0") } throws PointException(PointException.PointErrorResult.USER_NOT_EXISTS)
         mockMvc.perform(get("/points/{userId}", "user0"))
             .andExpect(status().isBadRequest)
     }

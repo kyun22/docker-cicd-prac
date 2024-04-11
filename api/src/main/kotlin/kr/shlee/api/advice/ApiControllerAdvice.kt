@@ -1,5 +1,8 @@
 package kr.shlee.api.advice
 
+import kr.shlee.domain.common.error.EventException
+import kr.shlee.domain.common.error.PointException
+import kr.shlee.domain.common.error.WaitlistException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice

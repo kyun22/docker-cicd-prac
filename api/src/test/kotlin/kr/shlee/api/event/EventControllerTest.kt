@@ -3,14 +3,13 @@ package kr.shlee.api.event
 import io.mockk.every
 import io.mockk.mockk
 import kr.shlee.api.advice.ApiControllerAdvice
-import kr.shlee.api.advice.EventErrorResult
-import kr.shlee.api.advice.EventException
 import kr.shlee.api.event.controller.EventController
 import kr.shlee.api.event.dto.EventResponse
 import kr.shlee.api.event.dto.SeatVo
 import kr.shlee.api.event.usecase.EventSearchByDateUseCase
 import kr.shlee.api.event.usecase.EventSearchByIdUseCase
 import kr.shlee.api.event.usecase.EventSearchUseCase
+import kr.shlee.domain.common.error.EventException
 import kr.shlee.domain.event.model.Event
 import kr.shlee.domain.ticket.model.Concert
 import kr.shlee.domain.ticket.model.Seat
@@ -47,7 +46,7 @@ class EventControllerTest {
     fun `이벤트 조회 실패 - 토큰이 존재하지 않음`() {
         every {
             eventSearchUseCase.execute(null)
-        } throws EventException(EventErrorResult.MISSING_TOKEN)
+        } throws EventException(EventException.EventErrorResult.MISSING_TOKEN)
         mockMvc.perform(
             get("/events")
                 .param("date", "2024-03-25")
@@ -59,7 +58,7 @@ class EventControllerTest {
     fun `이벤트 조회 실패 - 토큰이 유효하지 않음`() {
         every {
             eventSearchUseCase.execute("token0")
-        } throws EventException(EventErrorResult.INVALID_TOKEN)
+        } throws EventException(EventException.EventErrorResult.INVALID_TOKEN)
         mockMvc.perform(
             get("/events")
                 .header("X-USER-TOKEN", "token0")
