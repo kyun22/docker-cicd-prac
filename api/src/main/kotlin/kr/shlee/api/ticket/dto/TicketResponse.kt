@@ -15,7 +15,7 @@ class TicketResponse {
             fun of(tickets: List<Ticket>): Reserve {
                 return Reserve(
                     tickets = tickets,
-                    userId = tickets.first().userId,
+                    userId = tickets.first().user.id,
                     quantity = tickets.size,
                     totalPrice = tickets.sumOf { it.seat.price },
                     status = Ticket.Status.WAITING_PAYMENT
@@ -34,7 +34,7 @@ class TicketResponse {
             fun of(tickets: List<Ticket>, point: Int): Payment {
                 return Payment(
                     tickets = tickets,
-                    userId = tickets.first().userId,
+                    userId = tickets.first().user.id,
                     point = point
                 )
             }

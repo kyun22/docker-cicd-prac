@@ -1,40 +1,29 @@
 package kr.shlee.api.ticket.usecase
 
-import kr.shlee.domain.point.repository.UserRepository
-import kr.shlee.domain.ticket.model.Seat
-import kr.shlee.domain.ticket.model.Ticket
-import kr.shlee.domain.ticket.repository.SeatRepository
-import kr.shlee.domain.ticket.repository.TicketRepository
 import kr.shlee.api.ticket.dto.TicketRequest
 import kr.shlee.api.ticket.dto.TicketResponse
+import kr.shlee.domain.point.component.UserManager
+import kr.shlee.domain.ticket.component.SeatFinder
+import kr.shlee.domain.ticket.component.TicketManager
+import kr.shlee.domain.ticket.model.Ticket
 import org.springframework.stereotype.Component
 
 @Component
 class TicketReserveUseCase (
-    val userRepository: UserRepository,
-    val seatRepository: SeatRepository,
-    val ticketRepository: TicketRepository
+    val userManager: UserManager,
+    val seatFinder: SeatFinder,
+    val ticketManager: TicketManager
 ){
+    //todo, transactional
     fun execute(request: TicketRequest.Reserve): TicketResponse.Reserve {
-        // todo, 토큰 검증
-
         // user를 가져온다.
-        val user = userRepository.findById(request.userId) ?: throw RuntimeException("존재하지 않는 유저")
+        val user = userManager.find(request.userId)
 
         // seats를 가져온다.
-        val seats = mutableListOf<Seat>()
-        for (id in request.seatIds) {
-            val seat = seatRepository.findById(id) ?: throw RuntimeException("존재하지 않은 좌석")
-            seats.add(seat)
-        }
+        val seats = seatFinder.findSeats(request.seatIds)
 
-        // ticket을 생성한다.
-        val tickets = seats.map { Ticket(null, request.userId, it, Ticket.Status.WAITING_PAYMENT) }
-
-        // todo, transaction 처리
-        // ticket을 저장(status:WAIT_PAYMENT)한다.
-        tickets.forEach { ticket -> ticketRepository.save(ticket) }
-        return TicketResponse.Reserve.of(tickets)
+        // ticket을 생성하고 저장(예약)
+        return TicketResponse.Reserve.of(ticketManager.reserve(user, seats))
     }
 
 }

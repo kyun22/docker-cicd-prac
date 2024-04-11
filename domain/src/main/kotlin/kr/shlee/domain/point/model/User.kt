@@ -8,7 +8,7 @@ import kr.shlee.domain.common.error.UserException
 @Entity
 class User(
     @Id @GeneratedValue
-    val id: String?,
+    val id: String,
     var point: Int
 ) {
 

@@ -4,5 +4,6 @@ import kr.shlee.domain.ticket.model.Seat
 
 interface SeatRepository {
     fun findById(id: Long) : Seat?
+    fun findSeats(seatIds: List<String>) : List<Seat>
 
 }

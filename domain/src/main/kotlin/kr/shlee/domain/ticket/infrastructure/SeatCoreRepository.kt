@@ -6,9 +6,14 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class SeatCoreRepository(
-    val seatJpaRepository: SeatJpaRepository
+    private val seatJpaRepository: SeatJpaRepository,
+    private val seatCustomRepository: SeatCustomRepository
 ) : SeatRepository {
     override fun findById(id: Long): Seat? {
         return seatJpaRepository.findById(id).orElse(null)
+    }
+
+    override fun findSeats(seatIds: List<String>): List<Seat> {
+        return seatCustomRepository.findSeatByIds(seatIds)
     }
 }

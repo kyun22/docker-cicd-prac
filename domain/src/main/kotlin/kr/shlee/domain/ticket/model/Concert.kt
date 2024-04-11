@@ -9,7 +9,5 @@ class Concert(
     val id: String,
     val name: String,
     val singer: String,
-    @OneToMany(mappedBy = "concert", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val events: MutableList<Event>? = mutableListOf()
 ) {
 }

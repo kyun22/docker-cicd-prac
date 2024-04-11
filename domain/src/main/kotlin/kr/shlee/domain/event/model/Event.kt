@@ -14,7 +14,8 @@ class Event(
     val location: String,
     val date: LocalDate,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "concert_id")
     val concert: Concert,
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])

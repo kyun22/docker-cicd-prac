@@ -4,7 +4,7 @@ class TicketRequest {
     data class Reserve(
         val userId: String,
         val eventId: String,
-        val seatIds: List<Long>
+        val seatIds: List<String>
     )
 
     data class Payment (

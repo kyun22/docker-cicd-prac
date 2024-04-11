@@ -1,4 +1,4 @@
-package kr.shlee.api.advice
+package kr.shlee.api.config.advice
 
 import kr.shlee.domain.common.error.EventException
 import kr.shlee.domain.common.error.PointException

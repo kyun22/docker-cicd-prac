@@ -2,7 +2,7 @@ package kr.shlee.api.event
 
 import io.mockk.every
 import io.mockk.mockk
-import kr.shlee.api.advice.ApiControllerAdvice
+import kr.shlee.api.config.advice.ApiControllerAdvice
 import kr.shlee.api.event.controller.EventController
 import kr.shlee.api.event.dto.EventResponse
 import kr.shlee.api.event.dto.SeatVo

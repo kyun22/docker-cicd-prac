@@ -39,7 +39,7 @@ class EventTest {
     }
 
     private fun make10SeatsEvent(eventId: String, localDate: LocalDate): Event {
-        val event = Event(eventId, "서울", localDate, Concert("concert1", "콘서트1", "아이유", null))
+        val event = Event(eventId, "서울", localDate, Concert("concert1", "콘서트1", "아이유"))
         for (i in 1..10) {
             event.addSeat(Seat(i.toString(), event, i.toString(), 10000, Seat.Status.AVAILABLE))
         }

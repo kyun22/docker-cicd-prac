@@ -3,7 +3,7 @@ package kr.shlee.api.ticket
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
-import kr.shlee.api.advice.ApiControllerAdvice
+import kr.shlee.api.config.advice.ApiControllerAdvice
 import kr.shlee.domain.ticket.model.Concert
 import kr.shlee.domain.event.model.Event
 import kr.shlee.domain.ticket.model.Seat
@@ -13,6 +13,7 @@ import kr.shlee.api.ticket.dto.TicketRequest
 import kr.shlee.api.ticket.dto.TicketResponse
 import kr.shlee.api.ticket.usecase.TicketPaymentUseCase
 import kr.shlee.api.ticket.usecase.TicketReserveUseCase
+import kr.shlee.domain.point.model.User
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -40,19 +41,19 @@ class TicketControllerTest {
     @Test
     fun `자리 예약 API 테스트`() {
         //given
-        val request = TicketRequest.Reserve("user1", "event1", listOf(1L, 2L, 3L))
+        val request = TicketRequest.Reserve("user1", "event1", listOf("1L", "2L", "3L"))
         val json = objectMapper.writeValueAsString(request)
         val event = Event("event1", "서울", LocalDate.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
         val seat1 = Seat("1", event, "1", 10000, Seat.Status.AVAILABLE)
         val seat2 = Seat("2", event, "2", 10000, Seat.Status.AVAILABLE)
         val seat3 = Seat("3", event, "3", 10000, Seat.Status.AVAILABLE)
         val tickets = mutableListOf<Ticket>()
-        tickets.add(Ticket("ticket1", "user1", seat1, Ticket.Status.WAITING_PAYMENT))
-        tickets.add(Ticket("ticket2", "user1", seat2, Ticket.Status.WAITING_PAYMENT))
-        tickets.add(Ticket("ticket3", "user1", seat3, Ticket.Status.WAITING_PAYMENT))
+        tickets.add(Ticket("ticket1", User("user1", 0), seat1, Ticket.Status.WAITING_PAYMENT))
+        tickets.add(Ticket("ticket2", User("user1", 0), seat2, Ticket.Status.WAITING_PAYMENT))
+        tickets.add(Ticket("ticket3", User("user1", 0), seat3, Ticket.Status.WAITING_PAYMENT))
         every { ticketReserveUseCase.execute(request) } returns TicketResponse.Reserve(
             tickets,
-            tickets.first().userId,
+            tickets.first().user.id,
             tickets.size,
             tickets.sumOf { it.seat.price },
             Ticket.Status.WAITING_PAYMENT
@@ -82,9 +83,9 @@ class TicketControllerTest {
         val seat2 = Seat("2L", event, "2", 10000, Seat.Status.PURCHASED)
         val seat3 = Seat("3L", event, "3", 10000, Seat.Status.PURCHASED)
         val tickets = mutableListOf<Ticket>()
-        tickets.add(Ticket("ticket1", "user1", seat1, Ticket.Status.COMPLETE_PAYMENT))
-        tickets.add(Ticket("ticket2", "user1", seat2, Ticket.Status.COMPLETE_PAYMENT))
-        tickets.add(Ticket("ticket3", "user1", seat3, Ticket.Status.COMPLETE_PAYMENT))
+        tickets.add(Ticket("ticket1", User("user1", 0), seat1, Ticket.Status.COMPLETE_PAYMENT))
+        tickets.add(Ticket("ticket2", User("user1", 0), seat2, Ticket.Status.COMPLETE_PAYMENT))
+        tickets.add(Ticket("ticket3", User("user1", 0), seat3, Ticket.Status.COMPLETE_PAYMENT))
         every { ticketPaymentUseCase.execute(request) } returns TicketResponse.Payment.of(tickets, 0)
 
         //when

@@ -3,7 +3,7 @@ package kr.shlee.api.waitlist.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
-import kr.shlee.api.advice.ApiControllerAdvice
+import kr.shlee.api.config.advice.ApiControllerAdvice
 import kr.shlee.api.waitlist.controller.WaitlistController
 import kr.shlee.domain.waitlist.model.Waitlist
 import kr.shlee.api.waitlist.dto.WaitlistRequest

@@ -3,7 +3,7 @@ package kr.shlee.api.point
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
-import kr.shlee.api.advice.ApiControllerAdvice
+import kr.shlee.api.config.advice.ApiControllerAdvice
 import kr.shlee.domain.point.model.User
 import kr.shlee.api.point.controller.PointController
 import kr.shlee.api.point.dto.PointRequest
