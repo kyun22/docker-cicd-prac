@@ -44,7 +44,7 @@ class PointControllerTest {
         )
         //when
         mockMvc.perform(
-            post("/points/charge")
+            post("/points/{userId}/charge", "user1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
             //then
@@ -57,7 +57,7 @@ class PointControllerTest {
     @Test
     fun `포인트 조회 실패 - 존재하지 않는 유저`(){
         every { pointCheckUseCase.execute("user0") } throws PointException(PointException.PointErrorResult.USER_NOT_EXISTS)
-        mockMvc.perform(get("/points/{userId}", "user0"))
+        mockMvc.perform(get("/points/{userId}/check", "user0"))
             .andExpect(status().isBadRequest)
     }
 
@@ -67,7 +67,7 @@ class PointControllerTest {
             "user1",
             10000
         )
-        mockMvc.perform(get("/points/{userId}", "user1"))
+        mockMvc.perform(get("/points/{userId}/check", "user1"))
             .andExpect(status().isOk)
             .andExpect(jsonPath("id").value("user1"))
             .andExpect(jsonPath("point").value(10000))

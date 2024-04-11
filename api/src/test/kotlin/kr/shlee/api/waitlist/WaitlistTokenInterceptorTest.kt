@@ -1,6 +1,5 @@
 package kr.shlee.api.waitlist
 
-import kr.shlee.api.config.WaitlistTokenInterceptor
 import kr.shlee.api.event.dto.EventResponse
 import kr.shlee.api.event.dto.SeatVo
 import kr.shlee.api.event.usecase.EventSearchUseCase
@@ -10,7 +9,6 @@ import kr.shlee.domain.point.model.User
 import kr.shlee.domain.ticket.model.Concert
 import kr.shlee.domain.ticket.model.Seat
 import kr.shlee.domain.waitlist.component.WaitlistTokenValidator
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.never
@@ -32,8 +30,6 @@ class WaitlistTokenInterceptorTest {
 
     @MockBean
     private lateinit var tokenValidator: WaitlistTokenValidator
-
-    @MockBean lateinit var interceptor: WaitlistTokenInterceptor
 
     @MockBean lateinit var eventSearchUseCase: EventSearchUseCase
 

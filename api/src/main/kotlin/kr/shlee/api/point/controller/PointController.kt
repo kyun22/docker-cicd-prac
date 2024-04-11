@@ -18,14 +18,14 @@ class PointController(
     val pointCheckUseCase: PointCheckUseCase,
 ) {
 
-    @PostMapping("/charge")
+    @PostMapping("/{userId}/charge")
     fun charge(
         @RequestBody request: PointRequest.Charge
     ): User? {
         return pointChargeUseCase.execute(request)
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{userId}/check")
     fun check(
         @PathVariable userId: String
     ): User {
