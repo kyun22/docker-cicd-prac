@@ -12,9 +12,11 @@ import kr.shlee.domain.point.model.User
 class Ticket(
     @Id @GeneratedValue
     val id: String?,
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.PERSIST])
+    @JoinColumn(name = "user_id")
     val user: User,
     @OneToOne(cascade = [CascadeType.PERSIST])
+    @JoinColumn(name = "seat_id")
     val seat: Seat,
     var status: Status
 ) {
@@ -22,12 +24,10 @@ class Ticket(
         WAITING_PAYMENT, COMPLETE_PAYMENT, NONE
     }
 
-    fun updateStatus(after: Status) {
-        when (after) {
-            Status.COMPLETE_PAYMENT -> seat.status = Seat.Status.PURCHASED
-            Status.WAITING_PAYMENT -> seat.status = Seat.Status.RESERVED
-            Status.NONE -> seat.status = Seat.Status.AVAILABLE
-        }
+    fun completePayment() {
+        status = Status.COMPLETE_PAYMENT
+        seat.status = Seat.Status.PURCHASED
+        user.subtractPoint(seat.price)
     }
 
     companion object {

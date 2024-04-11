@@ -6,13 +6,15 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class TicketCoreRepository (
-    val ticketJpaRepository: TicketJpaRepository
+    private val ticketJpaRepository: TicketJpaRepository,
+    private val ticketCustomRepository: TicketCustomRepository
 ) : TicketRepository {
     override fun save(ticket: Ticket): Ticket {
-        TODO("Not yet implemented")
+        return ticketJpaRepository.save(ticket)
     }
 
-    override fun findAllById(ticketIds: List<String>): List<Ticket> {
-        TODO("Not yet implemented")
+    override fun findAllByIds(ticketIds: List<String>): List<Ticket>? {
+        return ticketCustomRepository.findAllByIds(ticketIds)
     }
+
 }

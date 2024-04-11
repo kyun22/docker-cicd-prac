@@ -4,6 +4,6 @@ import kr.shlee.domain.ticket.model.Ticket
 
 interface TicketRepository {
     fun save(ticket: Ticket) : Ticket
-    fun findAllById(ticketIds: List<String>) : List<Ticket>
+    fun findAllByIds(ticketIds: List<String>): List<Ticket>?
 
 }

@@ -15,6 +15,7 @@ class TicketReserveUseCase (
     val ticketManager: TicketManager
 ){
     //todo, transactional
+    // 예약 완료 후 5분간 유지 -> 5분간 결재하지 않으면 다시 AVAILABLE
     fun execute(request: TicketRequest.Reserve): TicketResponse.Reserve {
         // user를 가져온다.
         val user = userManager.find(request.userId)

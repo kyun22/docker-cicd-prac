@@ -31,11 +31,11 @@ class TicketResponse {
         val point: Int
     ){
         companion object {
-            fun of(tickets: List<Ticket>, point: Int): Payment {
+            fun of(tickets: List<Ticket>): Payment {
                 return Payment(
                     tickets = tickets,
                     userId = tickets.first().user.id,
-                    point = point
+                    point = tickets.first().user.point
                 )
             }
         }

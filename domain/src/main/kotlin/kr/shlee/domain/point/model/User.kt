@@ -21,6 +21,10 @@ class User(
         this.point -= amount
     }
 
+    fun isEnoughPoint(amount: Int) : Boolean {
+        return point >= amount
+    }
+
     companion object {
         fun newInstance(userId: String): User {
             return User(userId, 0)
