@@ -1,6 +1,6 @@
 package kr.shlee.api.event.dto
 
-import kr.shlee.domain.ticket.model.Event
+import kr.shlee.domain.event.model.Event
 import kr.shlee.domain.ticket.model.Seat
 import java.time.format.DateTimeFormatter
 
@@ -8,11 +8,11 @@ class EventListResponse(
     val events: List<EventResponse>
 ) {
     companion object {
-        fun newOf(events: List<Event>): MutableList<EventResponse> {
+        fun of(events: List<Event>): MutableList<EventResponse> {
             val list = mutableListOf<EventResponse>()
             events.map { event: Event ->
                 list.add(
-                    EventResponse.newOf(event)
+                    EventResponse.of(event)
                 )
             }
             return list
@@ -33,7 +33,7 @@ data class EventResponse(
             return seats.map { seat: Seat -> SeatVo.of(seat) }
         }
 
-        fun newOf(event: Event): EventResponse {
+        fun of(event: Event): EventResponse {
             return EventResponse(
                 id = event.id,
                 name = event.concert.name,
@@ -47,7 +47,7 @@ data class EventResponse(
 }
 
 
-data class SeatVo(val id: Long, val number: String, val price: Int) {
+data class SeatVo(val id: String, val number: String, val price: Int) {
     companion object {
         fun of(seat: Seat): SeatVo {
             return SeatVo(seat.id, seat.number, seat.price)

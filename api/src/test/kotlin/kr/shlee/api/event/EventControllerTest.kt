@@ -5,15 +5,15 @@ import io.mockk.mockk
 import kr.shlee.api.advice.ApiControllerAdvice
 import kr.shlee.api.advice.EventErrorResult
 import kr.shlee.api.advice.EventException
-import kr.shlee.domain.ticket.model.Concert
-import kr.shlee.domain.ticket.model.Event
-import kr.shlee.domain.ticket.model.Seat
 import kr.shlee.api.event.controller.EventController
 import kr.shlee.api.event.dto.EventResponse
 import kr.shlee.api.event.dto.SeatVo
 import kr.shlee.api.event.usecase.EventSearchByDateUseCase
 import kr.shlee.api.event.usecase.EventSearchByIdUseCase
 import kr.shlee.api.event.usecase.EventSearchUseCase
+import kr.shlee.domain.event.model.Event
+import kr.shlee.domain.ticket.model.Concert
+import kr.shlee.domain.ticket.model.Seat
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.test.Test
 
@@ -72,8 +73,8 @@ class EventControllerTest {
         val seats = mutableListOf<SeatVo>()
         for (i in 1..10) {
             val seat = Seat(
-                i.toLong(),
-                Event("event1", "loc", LocalDateTime.now(), Concert("concert1", "콘서트1", "아이유")),
+                i.toString(),
+                Event("event1", "loc", LocalDate.now(), Concert("concert1", "콘서트1", "아이유")),
                 i.toString(),
                 1000,
                 Seat.Status.AVAILABLE
@@ -82,8 +83,8 @@ class EventControllerTest {
         }
         for (i in 11..20) {
             val seat = Seat(
-                i.toLong(),
-                Event("event1", "loc", LocalDateTime.now(), Concert("concert1", "콘서트1", "아이유")),
+                i.toString(),
+                Event("event1", "loc", LocalDate.now(), Concert("concert1", "콘서트1", "아이유")),
                 i.toString(),
                 1000,
                 Seat.Status.RESERVED
@@ -92,8 +93,8 @@ class EventControllerTest {
         }
         for (i in 21..30) {
             val seat = Seat(
-                i.toLong(),
-                Event("event1", "loc", LocalDateTime.now(), Concert("concert1", "콘서트1", "아이유")),
+                i.toString(),
+                Event("event1", "loc", LocalDate.now(), Concert("concert1", "콘서트1", "아이유")),
                 i.toString(),
                 1000,
                 Seat.Status.PURCHASED

@@ -2,14 +2,13 @@ package kr.shlee.domain.waitlist.infrastructure
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
-import jakarta.persistence.PersistenceContext
 import kr.shlee.domain.waitlist.model.QWaitlist
 import kr.shlee.domain.waitlist.model.Waitlist
 import org.springframework.stereotype.Repository
 
 @Repository
 class WaitlistCustomRepository (
-    val entityManager: EntityManager
+    entityManager: EntityManager
 ){
     var query = JPAQueryFactory(entityManager)
 

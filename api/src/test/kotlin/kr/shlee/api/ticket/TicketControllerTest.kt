@@ -5,7 +5,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kr.shlee.api.advice.ApiControllerAdvice
 import kr.shlee.domain.ticket.model.Concert
-import kr.shlee.domain.ticket.model.Event
+import kr.shlee.domain.event.model.Event
 import kr.shlee.domain.ticket.model.Seat
 import kr.shlee.domain.ticket.model.Ticket
 import kr.shlee.api.ticket.controller.TicketController
@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.test.Test
 
@@ -41,10 +42,10 @@ class TicketControllerTest {
         //given
         val request = TicketRequest.Reserve("user1", "event1", listOf(1L, 2L, 3L))
         val json = objectMapper.writeValueAsString(request)
-        val event = Event("event1", "서울", LocalDateTime.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
-        val seat1 = Seat(1L, event, "1", 10000, Seat.Status.AVAILABLE)
-        val seat2 = Seat(2L, event, "2", 10000, Seat.Status.AVAILABLE)
-        val seat3 = Seat(3L, event, "3", 10000, Seat.Status.AVAILABLE)
+        val event = Event("event1", "서울", LocalDate.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
+        val seat1 = Seat("1", event, "1", 10000, Seat.Status.AVAILABLE)
+        val seat2 = Seat("2", event, "2", 10000, Seat.Status.AVAILABLE)
+        val seat3 = Seat("3", event, "3", 10000, Seat.Status.AVAILABLE)
         val tickets = mutableListOf<Ticket>()
         tickets.add(Ticket("ticket1", "user1", seat1, Ticket.Status.WAITING_PAYMENT))
         tickets.add(Ticket("ticket2", "user1", seat2, Ticket.Status.WAITING_PAYMENT))
@@ -76,10 +77,10 @@ class TicketControllerTest {
         val ticketIds = listOf("ticket1", "ticket2", "ticket3")
         val request = TicketRequest.Payment("user1", ticketIds)
         val json = objectMapper.writeValueAsString(request)
-        val event = Event("event1", "서울", LocalDateTime.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
-        val seat1 = Seat(1L, event, "1", 10000, Seat.Status.PURCHASED)
-        val seat2 = Seat(2L, event, "2", 10000, Seat.Status.PURCHASED)
-        val seat3 = Seat(3L, event, "3", 10000, Seat.Status.PURCHASED)
+        val event = Event("event1", "서울", LocalDate.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
+        val seat1 = Seat("1L", event, "1", 10000, Seat.Status.PURCHASED)
+        val seat2 = Seat("2L", event, "2", 10000, Seat.Status.PURCHASED)
+        val seat3 = Seat("3L", event, "3", 10000, Seat.Status.PURCHASED)
         val tickets = mutableListOf<Ticket>()
         tickets.add(Ticket("ticket1", "user1", seat1, Ticket.Status.COMPLETE_PAYMENT))
         tickets.add(Ticket("ticket2", "user1", seat2, Ticket.Status.COMPLETE_PAYMENT))

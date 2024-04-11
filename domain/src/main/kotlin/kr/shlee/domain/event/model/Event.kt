@@ -1,6 +1,9 @@
-package kr.shlee.domain.ticket.model
+package kr.shlee.domain.event.model
 
 import jakarta.persistence.*
+import kr.shlee.domain.ticket.model.Concert
+import kr.shlee.domain.ticket.model.Seat
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
@@ -9,7 +12,7 @@ class Event(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: String,
     val location: String,
-    val date: LocalDateTime,
+    val date: LocalDate,
 
     @ManyToOne
     val concert: Concert,

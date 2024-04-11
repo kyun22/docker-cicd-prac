@@ -25,7 +25,7 @@ dependencies {
     kapt("com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
     kapt("jakarta.annotation:jakarta.annotation-api")
     kapt("jakarta.persistence:jakarta.persistence-api")
-
+    testImplementation("io.mockk:mockk:1.13.10")
 }
 
 tasks.test {
