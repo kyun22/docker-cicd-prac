@@ -1,4 +1,4 @@
-package kr.shlee.domain.ticket.component
+package kr.shlee.domain.event.component
 
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
