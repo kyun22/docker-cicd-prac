@@ -1,5 +1,6 @@
 package kr.shlee.api.event
 
+import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document
 import io.mockk.every
 import io.mockk.mockk
 import kr.shlee.api.config.advice.ApiControllerAdvice
@@ -14,16 +15,21 @@ import kr.shlee.domain.event.model.Event
 import kr.shlee.domain.ticket.model.Concert
 import kr.shlee.domain.ticket.model.Seat
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.restdocs.RestDocumentationContextProvider
+import org.springframework.restdocs.RestDocumentationExtension
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder
 import java.time.LocalDate
-import java.time.LocalDateTime
 import kotlin.test.Test
 
+@ExtendWith(RestDocumentationExtension::class)
 class EventControllerTest {
     private lateinit var mockMvc: MockMvc
     private val eventSearchByIdUseCase: EventSearchByIdUseCase = mockk()
@@ -31,7 +37,7 @@ class EventControllerTest {
     private val eventSearchUseCase: EventSearchUseCase = mockk()
 
     @BeforeEach
-    fun setUp() {
+    fun setUp(restDocumentationContextProvider: RestDocumentationContextProvider) {
         mockMvc = MockMvcBuilders.standaloneSetup(
             EventController(
                 eventSearchByIdUseCase,
@@ -39,7 +45,9 @@ class EventControllerTest {
                 eventSearchUseCase
             )
         )
-            .setControllerAdvice(ApiControllerAdvice()).build()
+            .setControllerAdvice(ApiControllerAdvice())
+            .apply<StandaloneMockMvcBuilder>(MockMvcRestDocumentation.documentationConfiguration(restDocumentationContextProvider))
+            .build()
     }
 
     @Test
@@ -52,6 +60,7 @@ class EventControllerTest {
                 .param("date", "2024-03-25")
                 .param("eventId", "event1")
         ).andExpect(status().isUnauthorized)
+            .andDo(document("event-search-fail_missing-token"))
     }
 
     @Test
@@ -65,7 +74,7 @@ class EventControllerTest {
                 .param("date", "2024-03-25")
                 .param("eventId", "event1")
         ).andExpect(status().isUnauthorized)
-            .andDo(MockMvcResultHandlers.print())
+            .andDo(document("event-search-fail_invalid-token"))
     }
 
     private fun makeDymmySeatVos(): MutableList<SeatVo> {
@@ -115,6 +124,7 @@ class EventControllerTest {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(jsonPath("$.length()").value(1))
             .andExpect(jsonPath("$[0].id").value("event1"))
+            .andDo(document("event-search-by-date"))
     }
 
     @Test
@@ -130,6 +140,7 @@ class EventControllerTest {
 //            .andExpect(jsonPath("$.length()").value(1))
             .andExpect(jsonPath("id").value("event1"))
             .andExpect(jsonPath("name").value("이벤트1"))
+            .andDo(document("event-search-by-id"))
     }
 
     @Test
@@ -140,9 +151,12 @@ class EventControllerTest {
             EventResponse("event3", "이벤트3", "서울", 10, makeDymmySeatVos(), "2024-03-27"),
         )
         every { eventSearchUseCase.execute(token = "token1") } returns events
-        mockMvc.perform(get("/events").header("X-USER-TOKEN", "token1"))
+        mockMvc.perform(
+            get("/events").header("X-USER-TOKEN", "token1"))
             .andExpect(status().isOk)
             .andDo(MockMvcResultHandlers.print())
             .andExpect(jsonPath("$.length()").value(3))
+            .andDo(document("event-search-all"))
+
     }
 }

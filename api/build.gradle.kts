@@ -29,10 +29,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-kotlin {
-    jvmToolchain(17)
-}
-
 tasks.bootJar {
     enabled = false
 }
