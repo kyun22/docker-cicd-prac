@@ -3,6 +3,7 @@
 ### week4
 #### Swagger 적용 캡처사진
 ![img.png](resources/diagrams/images/swagger-screenshot.png)
+![img.png](resources/diagrams/images/swagger-screenshot2.png)
 
 ### week3
 #### Step5. 요구사항 설계 및 Milestone

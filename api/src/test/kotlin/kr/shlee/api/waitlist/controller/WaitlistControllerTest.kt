@@ -1,27 +1,31 @@
 package kr.shlee.api.waitlist.controller
 
+import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.mockk
 import kr.shlee.api.config.advice.ApiControllerAdvice
-import kr.shlee.api.waitlist.controller.WaitlistController
-import kr.shlee.domain.waitlist.model.Waitlist
 import kr.shlee.api.waitlist.dto.WaitlistRequest
 import kr.shlee.api.waitlist.dto.WaitlistResponse
 import kr.shlee.api.waitlist.usecase.WaitlistCheckOrderUseCase
 import kr.shlee.api.waitlist.usecase.WaitlistRegisterUseCase
+import kr.shlee.domain.waitlist.model.Waitlist
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.http.MediaType
+import org.springframework.restdocs.RestDocumentationContextProvider
+import org.springframework.restdocs.RestDocumentationExtension
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder
 import java.util.*
 
+@ExtendWith(RestDocumentationExtension::class)
 class WaitlistControllerTest {
 
     private lateinit var mockMvc: MockMvc
@@ -30,7 +34,7 @@ class WaitlistControllerTest {
     private val waitlistCheckOrderUseCase: WaitlistCheckOrderUseCase = mockk()
 
     @BeforeEach
-    fun setUp() {
+    fun setUp(restDocumentationContextProvider: RestDocumentationContextProvider) {
         mockMvc = MockMvcBuilders.standaloneSetup(
             WaitlistController(
                 waitlistRegisterUseCase,
@@ -38,6 +42,7 @@ class WaitlistControllerTest {
             )
         )
             .setControllerAdvice(ApiControllerAdvice())
+            .apply<StandaloneMockMvcBuilder>(MockMvcRestDocumentation.documentationConfiguration(restDocumentationContextProvider))
             .build()
     }
 
@@ -55,14 +60,14 @@ class WaitlistControllerTest {
 
         //when
         mockMvc.perform(
-            post("/waitlist/register")
+            RestDocumentationRequestBuilders.post("/waitlist/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
         )
             //then
             .andExpect(status().isOk)
             .andExpect(jsonPath("userId").value("user1"))
-            .andDo(print())
+            .andDo(MockMvcRestDocumentationWrapper.document("waitlist-token-generate"))
     }
 
 
@@ -76,13 +81,13 @@ class WaitlistControllerTest {
         )
 
         //when
-        mockMvc.perform(get("/waitlist/position")
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/waitlist/position")
             .contentType(MediaType.APPLICATION_JSON)
             .content(json))
             //then
             .andExpect(status().isOk)
             .andExpect(jsonPath("position").value(2))
-            .andDo(print())
+            .andDo(MockMvcRestDocumentationWrapper.document("check-waitlist-position"))
     }
 
 }
