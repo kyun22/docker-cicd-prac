@@ -10,7 +10,7 @@ class WaitlistScheduleExpireUseCase (
 ) {
 
     @Scheduled(fixedDelay = 60000)
-    fun expireOldWaitlist() {
+    fun execute() {
         waitlistWriter.expireAllOldWaitlist()
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import kr.shlee.domain.common.base.BaseEntity
 import java.time.LocalDateTime
 import java.util.*
 
@@ -13,14 +14,11 @@ class Waitlist(
     val id: Long?,
     val token: String,
     val userId: String,
-    val createdAt: LocalDateTime,
     var updateStatusAt: LocalDateTime?,
     var status: Status
-) {
+) :BaseEntity() {
     enum class Status {
         AVAILABLE, WAITING, EXPIRED,
-        ;
-
     }
 
     companion object {
@@ -29,7 +27,6 @@ class Waitlist(
                 id = null,
                 token = UUID.randomUUID().toString(),
                 userId = userId,
-                createdAt = LocalDateTime.now(),
                 updateStatusAt = null,
                 status = Status.WAITING
             )

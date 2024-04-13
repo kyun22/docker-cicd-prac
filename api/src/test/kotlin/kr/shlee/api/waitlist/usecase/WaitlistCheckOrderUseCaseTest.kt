@@ -26,8 +26,8 @@ class WaitlistCheckOrderUseCaseTest {
     fun `대기순번체크 테스트`(){
     	//given
         val req = WaitlistRequest.Position("token20")
-        every { waitlistReader.findByToken("token20") } returns Waitlist(20, "token20", "user2", LocalDateTime.now(), null, Waitlist.Status.WAITING)
-        every { waitlistReader.getLastAvailableWaitlist() } returns Waitlist(10, "token10", "user1", LocalDateTime.now(), null, Waitlist.Status.AVAILABLE)
+        every { waitlistReader.findByToken("token20") } returns Waitlist(20, "token20", "user2", null, Waitlist.Status.WAITING)
+        every { waitlistReader.getLastAvailableWaitlist() } returns Waitlist(10, "token10", "user1", null, Waitlist.Status.AVAILABLE)
 
         //when
         val res = waitlistCheckOrderUseCase.execute(req)

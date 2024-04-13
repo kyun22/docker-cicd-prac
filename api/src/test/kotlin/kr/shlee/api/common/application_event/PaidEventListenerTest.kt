@@ -30,9 +30,10 @@ class PaidEventListenerTest {
     fun `PaidEvent 테스트 - 결제 완료 후 waitlist를 만료시킨다`(){
     	//given
         @SpyK
-        val waitlist = Waitlist(1, "token1", "user1", LocalDateTime.now(), LocalDateTime.now(), Waitlist.Status.AVAILABLE)
+        val waitlist = Waitlist(1, "token1", "user1", LocalDateTime.now(), Waitlist.Status.AVAILABLE)
         every { waitlistReader.getByUserId("user1") } returns waitlist
         every { waitlistWriter.save(waitlist) } returns waitlist
+        every { waitlistReader.findFirstWaitingWaitlist() } returns null
         assertThat(waitlist.status).isEqualTo(Waitlist.Status.AVAILABLE)
 
         //when
@@ -45,9 +46,9 @@ class PaidEventListenerTest {
     @Test
     fun `PaidEvent 테스트 - 결제 완료 후 다음 waitlist를 입장시킨다`(){
         @SpyK
-        val paid = Waitlist(1, "token1", "user1", LocalDateTime.now(), LocalDateTime.now(), Waitlist.Status.AVAILABLE)
+        val paid = Waitlist(1, "token1", "user1", LocalDateTime.now(), Waitlist.Status.AVAILABLE)
         @SpyK
-        val waiting = Waitlist(2, "token1", "user1", LocalDateTime.now(), LocalDateTime.now(), Waitlist.Status.WAITING)
+        val waiting = Waitlist(2, "token1", "user1", LocalDateTime.now(), Waitlist.Status.WAITING)
         every { waitlistReader.getByUserId("user1") } returns paid
         every { waitlistWriter.save(paid) } returns paid
         every { waitlistReader.findFirstWaitingWaitlist() } returns waiting

@@ -18,8 +18,8 @@ class WaitlistTest {
 
     @Test
     fun `대기순번 계산 테스트`(){
-        val last = Waitlist(0, "token1", "user1", LocalDateTime.now(), null, Waitlist.Status.WAITING)
-        val new = Waitlist(1, "token1", "user1", LocalDateTime.now(), null, Waitlist.Status.WAITING)
+        val last = Waitlist(0, "token1", "user1", null, Waitlist.Status.WAITING)
+        val new = Waitlist(1, "token1", "user1", null, Waitlist.Status.WAITING)
 
         assertThat(new.getPositionFromLastWaitlist(last)).isEqualTo(1L)
     }
