@@ -5,10 +5,10 @@ import kr.shlee.domain.waitlist.repository.WaitListRepository
 import org.springframework.stereotype.Component
 
 @Component
-class WaitlistAppender(
+class WaitlistWriter(
     val waitListRepository: WaitListRepository
 ) {
-    fun add(waitlist: Waitlist): Waitlist {
+    fun save(waitlist: Waitlist): Waitlist {
         return waitListRepository.save(waitlist)
     }
 }

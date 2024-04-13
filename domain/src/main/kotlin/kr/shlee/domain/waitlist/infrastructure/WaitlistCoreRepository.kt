@@ -34,4 +34,8 @@ class WaitlistCoreRepository(
     override fun getAvailableCount(): Long {
         return waitlistCustomRepository.getAvailableCount()
     }
+
+    override fun findFirstWaitingWaitlist(): Waitlist? {
+        return waitlistCustomRepository.getFirstWaitingWaitlist()
+    }
 }

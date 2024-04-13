@@ -4,12 +4,15 @@ import kr.shlee.api.ticket.dto.TicketRequest
 import kr.shlee.api.ticket.dto.TicketResponse
 import kr.shlee.domain.point.component.UserManager
 import kr.shlee.domain.ticket.component.TicketManager
+import kr.shlee.domain.ticket.model.PaidEvent
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 
 @Component
 class TicketPaymentUseCase(
     val userManager: UserManager,
-    val ticketManager: TicketManager
+    val ticketManager: TicketManager,
+    val applicationEventPublisher: ApplicationEventPublisher
 ) {
 
     // todo, transactional 처리
@@ -17,9 +20,11 @@ class TicketPaymentUseCase(
         // user를 가져온다.
         val user = userManager.find(request.userId)
 
-        // tickets 결재 진행
+        // tickets 결제 진행
         val tickets = ticketManager.pay(user, request.ticketIds)
 
+        // 결제 완료 이벤트 발행
+        applicationEventPublisher.publishEvent(PaidEvent(user.id))
         return TicketResponse.Payment.of(tickets)
     }
 

@@ -6,11 +6,10 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kr.shlee.domain.point.model.User
 import kr.shlee.domain.point.repository.UserRepository
-import kr.shlee.domain.waitlist.component.WaitlistAppender
+import kr.shlee.domain.waitlist.component.WaitlistWriter
 import kr.shlee.domain.waitlist.component.WaitlistReader
 import kr.shlee.domain.waitlist.model.Waitlist
 import kr.shlee.api.waitlist.dto.WaitlistRequest
-import kr.shlee.api.waitlist.usecase.WaitlistRegisterUseCase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,7 +20,7 @@ class WaitlistRegisterUseCaseTest {
     private lateinit var userRepository: UserRepository
 
     @MockK
-    private lateinit var waitlistAppender: WaitlistAppender
+    private lateinit var waitlistWriter: WaitlistWriter
 
     @MockK
     private lateinit var waitlistReader: WaitlistReader
@@ -36,8 +35,8 @@ class WaitlistRegisterUseCaseTest {
             "user1",
             0
         )
-        every { waitlistReader.find("user1") } returns null
-        every { waitlistAppender.add(any())} returns Waitlist.newOf("user1")
+        every { waitlistReader.findByUserId("user1") } returns null
+        every { waitlistWriter.save(any())} returns Waitlist.newOf("user1")
         every { waitlistReader.getAvailableCount() } returns 50L
         val request: WaitlistRequest.Register = WaitlistRequest.Register("user1")
 
@@ -57,8 +56,8 @@ class WaitlistRegisterUseCaseTest {
             "user1",
             0
         )
-        every { waitlistReader.find("user1") } returns null
-        every { waitlistAppender.add(any())} returns Waitlist.newOf("user1")
+        every { waitlistReader.findByUserId("user1") } returns null
+        every { waitlistWriter.save(any())} returns Waitlist.newOf("user1")
         every { waitlistReader.getAvailableCount() } returns 40L
         val request: WaitlistRequest.Register = WaitlistRequest.Register("user1")
 

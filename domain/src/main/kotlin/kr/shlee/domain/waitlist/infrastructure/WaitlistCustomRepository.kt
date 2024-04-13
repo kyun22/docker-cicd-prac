@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository
 class WaitlistCustomRepository (
     entityManager: EntityManager
 ){
-    var query = JPAQueryFactory(entityManager)
+    private var query = JPAQueryFactory(entityManager)
+    private val waitlist = QWaitlist.waitlist
 
     fun getLastAvailableWaitlist(): Waitlist? {
-        val waitlist = QWaitlist.waitlist
         return query
             .select(waitlist)
             .from(waitlist)
@@ -23,10 +23,16 @@ class WaitlistCustomRepository (
     }
 
     fun getAvailableCount(): Long {
-        val waitlist = QWaitlist.waitlist
         return query.select().from(waitlist)
             .where(waitlist.status.eq(Waitlist.Status.AVAILABLE))
             .fetchCount()
+    }
+
+    fun getFirstWaitingWaitlist(): Waitlist? {
+        return query.selectFrom(waitlist)
+            .where(waitlist.status.eq(Waitlist.Status.WAITING))
+            .orderBy(waitlist.createdAt.asc())
+            .fetchFirst()
     }
 
 }
