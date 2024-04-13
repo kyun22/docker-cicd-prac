@@ -14,7 +14,10 @@ class TicketManager(
     fun reserve(user: User, seats: List<Seat>): List<Ticket> {
         // ticket을 생성한다.
         val tickets = Ticket.makeTickets(user, seats)
-        tickets.forEach { ticket -> ticketRepository.save(ticket) }
+        tickets.forEach { ticket ->
+            ticket.seat.changeToReserved()
+            ticketRepository.save(ticket)
+        }
         return tickets
     }
 
@@ -22,7 +25,7 @@ class TicketManager(
         val tickets = ticketRepository.findAllByIds(ticketIds)
             ?: throw TicketException(TicketException.TicketErrorResult.TICKET_NOT_FOUND)
 
-        if(!user.id.equals(tickets.first().user.id))
+        if (user.id != tickets.first().user.id)
             throw TicketException(TicketException.TicketErrorResult.NOT_TICKET_OWNER)
 
         // user의 포인트가 충분한지 체크
@@ -32,7 +35,15 @@ class TicketManager(
         // 티켓 상태 업데이트 : 완료
         tickets.forEach { ticket -> ticket.completePayment() }
         return tickets
-        //todo, 대기열 만료
+    }
+
+    fun findAllExpireTarget(): List<Ticket>? {
+        return ticketRepository.findAllReservedAndNotPaidTickets()
+    }
+
+    fun expire(ticket: Ticket): Ticket {
+        ticket.expireAndRefreshSeat()
+        return ticketRepository.save(ticket)
     }
 
     private fun getTotalPrice(tickets: List<Ticket>) =

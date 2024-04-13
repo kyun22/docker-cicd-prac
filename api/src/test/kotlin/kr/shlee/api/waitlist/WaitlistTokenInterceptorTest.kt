@@ -73,6 +73,7 @@ class WaitlistTokenInterceptorTest {
                 Event("event1", "loc", LocalDate.now(), Concert("concert1", "콘서트1", "아이유")),
                 i.toString(),
                 1000,
+                null,
                 Seat.Status.AVAILABLE
             )
             seats.add(SeatVo.of(seat))

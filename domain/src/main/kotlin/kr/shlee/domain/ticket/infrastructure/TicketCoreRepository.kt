@@ -17,4 +17,8 @@ class TicketCoreRepository (
         return ticketCustomRepository.findAllByIds(ticketIds)
     }
 
+    override fun findAllReservedAndNotPaidTickets(): List<Ticket>? {
+        return ticketCustomRepository.findAllReservedAndNotPaidTickets()
+    }
+
 }

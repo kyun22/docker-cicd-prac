@@ -116,6 +116,7 @@ class TicketManagerTest {
             Event("event1", "loc", LocalDate.now(), Concert("con1", "name", "singer"), mutableListOf<Seat>()),
             i.toString(),
             1000,
+            null,
             Seat.Status.AVAILABLE
         )
 

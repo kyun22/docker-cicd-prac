@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
+import kr.shlee.domain.common.base.BaseEntity
 import kr.shlee.domain.point.model.User
 
 @Entity
@@ -19,9 +20,15 @@ class Ticket(
     @JoinColumn(name = "seat_id")
     val seat: Seat,
     var status: Status
-) {
+) : BaseEntity() {
     enum class Status {
-        WAITING_PAYMENT, COMPLETE_PAYMENT, NONE
+        WAITING_PAYMENT, COMPLETE_PAYMENT, EXPIRED
+    }
+
+    companion object {
+        fun makeTickets(user: User, seats: List<Seat>): List<Ticket> {
+            return seats.map { seat -> Ticket(null, user, seat, Status.WAITING_PAYMENT) }
+        }
     }
 
     fun completePayment() {
@@ -30,10 +37,9 @@ class Ticket(
         user.subtractPoint(seat.price)
     }
 
-    companion object {
-        fun makeTickets(user: User, seats: List<Seat>): List<Ticket> {
-            return seats.map { seat -> Ticket(null, user, seat, Status.WAITING_PAYMENT) }
-        }
+    fun expireAndRefreshSeat() {
+        status = Status.EXPIRED
+        seat.refreshStatus()
     }
 
 }

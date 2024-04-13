@@ -6,16 +6,14 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kr.shlee.domain.common.error.EventException
 import kr.shlee.domain.common.util.DateUtils
-import kr.shlee.domain.event.component.EventFinder
 import kr.shlee.domain.event.model.Event
-import kr.shlee.domain.ticket.model.Seat
 import kr.shlee.domain.event.repository.EventRepository
 import kr.shlee.domain.ticket.model.Concert
+import kr.shlee.domain.ticket.model.Seat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import java.time.LocalDate
-import java.time.LocalDateTime
 import kotlin.test.Test
 
 @ExtendWith(MockKExtension::class)
@@ -47,7 +45,7 @@ class EventFinderTest {
     private fun makeDummyEvent(eventId: String, localDate: LocalDate): Event {
         val event = Event(eventId, "서울", localDate, Concert("concert1", "콘서트1", "아이유"))
         for (i in 1..10) {
-            event.addSeat(Seat(i.toString(), event, i.toString(), 10000, Seat.Status.AVAILABLE))
+            event.addSeat(Seat(i.toString(), event, i.toString(), 10000, null, Seat.Status.AVAILABLE))
         }
         return event
     }
