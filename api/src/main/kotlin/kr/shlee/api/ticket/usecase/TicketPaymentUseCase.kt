@@ -1,5 +1,6 @@
 package kr.shlee.api.ticket.usecase
 
+import kr.shlee.api.common.application_event.CustomApplicationEventPublisher
 import kr.shlee.api.ticket.dto.TicketRequest
 import kr.shlee.api.ticket.dto.TicketResponse
 import kr.shlee.domain.point.component.UserManager
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component
 class TicketPaymentUseCase(
     val userManager: UserManager,
     val ticketManager: TicketManager,
-    val applicationEventPublisher: ApplicationEventPublisher
+    val applicationEventPublisher: CustomApplicationEventPublisher
 ) {
 
     // todo, transactional 처리
