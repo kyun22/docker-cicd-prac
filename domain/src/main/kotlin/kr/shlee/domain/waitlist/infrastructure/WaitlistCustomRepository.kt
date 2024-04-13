@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager
 import kr.shlee.domain.waitlist.model.QWaitlist
 import kr.shlee.domain.waitlist.model.Waitlist
 import org.springframework.stereotype.Repository
+import java.time.LocalDateTime
 
 @Repository
 class WaitlistCustomRepository (
@@ -33,6 +34,13 @@ class WaitlistCustomRepository (
             .where(waitlist.status.eq(Waitlist.Status.WAITING))
             .orderBy(waitlist.createdAt.asc())
             .fetchFirst()
+    }
+
+    fun updateExpiredByUpdateStatusAt() {
+        query.update(waitlist)
+            .set(waitlist.status, Waitlist.Status.EXPIRED)
+            .where(waitlist.updateStatusAt.before(LocalDateTime.now().minusMinutes(5)))
+            .execute()
     }
 
 }

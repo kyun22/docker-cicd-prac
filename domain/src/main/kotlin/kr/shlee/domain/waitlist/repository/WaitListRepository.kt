@@ -10,5 +10,6 @@ interface WaitListRepository {
     fun getLastAvailableWaitlist(): Waitlist?
     fun getAvailableCount(): Long
     fun findFirstWaitingWaitlist(): Waitlist?
+    fun updateExpiredByUpdateStatusAt()
 }
 

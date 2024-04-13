@@ -11,4 +11,9 @@ class WaitlistWriter(
     fun save(waitlist: Waitlist): Waitlist {
         return waitListRepository.save(waitlist)
     }
+
+    fun expireAllOldWaitlist() {
+        waitListRepository.updateExpiredByUpdateStatusAt()
+
+    }
 }

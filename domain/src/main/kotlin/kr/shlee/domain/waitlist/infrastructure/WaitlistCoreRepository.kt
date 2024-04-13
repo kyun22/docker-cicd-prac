@@ -38,4 +38,8 @@ class WaitlistCoreRepository(
     override fun findFirstWaitingWaitlist(): Waitlist? {
         return waitlistCustomRepository.getFirstWaitingWaitlist()
     }
+
+    override fun updateExpiredByUpdateStatusAt() {
+        return waitlistCustomRepository.updateExpiredByUpdateStatusAt()
+    }
 }
