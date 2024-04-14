@@ -20,7 +20,7 @@ class WaitlistCustomRepository (
             .from(waitlist)
             .where(waitlist.status.eq(Waitlist.Status.AVAILABLE))
             .orderBy(waitlist.createdAt.desc())
-            .fetchFirst()
+            .fetchOne()
     }
 
     fun getAvailableCount(): Long {
@@ -33,7 +33,7 @@ class WaitlistCustomRepository (
         return query.selectFrom(waitlist)
             .where(waitlist.status.eq(Waitlist.Status.WAITING))
             .orderBy(waitlist.createdAt.asc())
-            .fetchFirst()
+            .fetchOne()
     }
 
     fun updateExpiredByUpdateStatusAt() {
@@ -41,6 +41,12 @@ class WaitlistCustomRepository (
             .set(waitlist.status, Waitlist.Status.EXPIRED)
             .where(waitlist.updateStatusAt.before(LocalDateTime.now().minusMinutes(5)))
             .execute()
+    }
+
+    fun findByIdExceptExpired(userId: String): Waitlist? {
+        return query.selectFrom(waitlist)
+            .where(waitlist.userId.eq(userId).and(waitlist.status.ne(Waitlist.Status.EXPIRED)))
+            .fetchOne()
     }
 
 }

@@ -12,6 +12,13 @@ class WaitlistWriter(
         return waitListRepository.save(waitlist)
     }
 
+    fun add(userId: String, activeCount: Long, maxAvailableCount: Long): Waitlist {
+        val waitlist = Waitlist.newOf(userId)
+        if (activeCount < maxAvailableCount)
+            waitlist.changeStatus(Waitlist.Status.AVAILABLE)
+        return waitListRepository.save(waitlist)
+    }
+
     fun expireAllOldWaitlist() {
         waitListRepository.updateExpiredByUpdateStatusAt()
 

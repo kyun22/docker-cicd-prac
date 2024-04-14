@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component
 class WaitlistReader (
     val waitListRepository: WaitListRepository
 ){
-    fun findByUserId(userId: String): Waitlist? {
-        return waitListRepository.findByUserId(userId)
+    fun findAlreadyRegistered(userId: String): Waitlist? {
+        waitListRepository.findByUserId(userId)
+            ?: throw WaitlistException(WaitlistException.WaitlistErrorResult.USER_NOT_FOUND)
+
+        return waitListRepository.findByIdExceptExpired(userId)
     }
 
     fun getByUserId(userId: String): Waitlist {
@@ -18,20 +21,21 @@ class WaitlistReader (
             ?: throw WaitlistException(WaitlistException.WaitlistErrorResult.USER_NOT_FOUND)
     }
 
-    fun getLastAvailableWaitlist(): Waitlist? {
-        return waitListRepository.getLastAvailableWaitlist()
-
-    }
-
-    fun getAvailableCount(): Long {
+    fun getAvailableWaitlistCount(): Long {
         return waitListRepository.getAvailableCount()
-    }
-
-    fun findByToken(token: String): Waitlist? {
-        return waitListRepository.findByToken(token)
     }
 
     fun findFirstWaitingWaitlist(): Waitlist? {
         return waitListRepository.findFirstWaitingWaitlist()
     }
+
+    fun getPosition(token: String): Long {
+        val waitlist = (waitListRepository.findByToken(token)
+            ?: throw WaitlistException(WaitlistException.WaitlistErrorResult.UNREGISTERED_USER))
+
+        return waitListRepository.getLastAvailableWaitlist()
+            ?.let { last -> waitlist.getPositionFromLastWaitlist(last) }
+            ?: 0
+    }
+
 }

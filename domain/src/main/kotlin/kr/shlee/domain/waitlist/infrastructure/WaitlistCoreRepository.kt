@@ -42,4 +42,8 @@ class WaitlistCoreRepository(
     override fun updateExpiredByUpdateStatusAt() {
         return waitlistCustomRepository.updateExpiredByUpdateStatusAt()
     }
+
+    override fun findByIdExceptExpired(userId: String): Waitlist? {
+        return waitlistCustomRepository.findByIdExceptExpired(userId)
+    }
 }

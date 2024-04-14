@@ -29,15 +29,11 @@ class WaitlistRegisterUseCaseTest {
     private lateinit var waitlistRegisterUseCase: WaitlistRegisterUseCase
 
     @Test
-    fun `userId로 토큰을 발급한다`() {
+    fun `userId로 토큰을 발급한다 - 대기열에 빈자리가 없는 경우 WAITING`() {
         //given
-        every { userRepository.findById("user1") } returns User(
-            "user1",
-            0
-        )
-        every { waitlistReader.findByUserId("user1") } returns null
-        every { waitlistWriter.save(any())} returns Waitlist.newOf("user1")
-        every { waitlistReader.getAvailableCount() } returns 50L
+        every { waitlistReader.findAlreadyRegistered("user1") } returns null
+        every { waitlistReader.getAvailableWaitlistCount() } returns 60L
+        every { waitlistWriter.add("user1", 60, 50)} returns Waitlist.newOf("user1")
         val request: WaitlistRequest.Register = WaitlistRequest.Register("user1")
 
         //when
@@ -52,13 +48,9 @@ class WaitlistRegisterUseCaseTest {
     @Test
     fun `userId로 토큰을 발급한다 - 대기열에 빈자리가 있어 바로 입장 가능`() {
         //given
-        every { userRepository.findById("user1") } returns User(
-            "user1",
-            0
-        )
-        every { waitlistReader.findByUserId("user1") } returns null
-        every { waitlistWriter.save(any())} returns Waitlist.newOf("user1")
-        every { waitlistReader.getAvailableCount() } returns 40L
+        every { waitlistReader.findAlreadyRegistered("user1") } returns null
+        every { waitlistReader.getAvailableWaitlistCount() } returns 40L
+        every { waitlistWriter.add("user1", 40, 50)} returns Waitlist.newOf("user1").apply { changeStatus(Waitlist.Status.AVAILABLE) }
         val request: WaitlistRequest.Register = WaitlistRequest.Register("user1")
 
         //when

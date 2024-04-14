@@ -4,13 +4,10 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
-import kr.shlee.domain.waitlist.component.WaitlistReader
-import kr.shlee.domain.waitlist.model.Waitlist
 import kr.shlee.api.waitlist.dto.WaitlistRequest
-import kr.shlee.api.waitlist.usecase.WaitlistCheckOrderUseCase
+import kr.shlee.domain.waitlist.component.WaitlistReader
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.extension.ExtendWith
-import java.time.LocalDateTime
 import kotlin.test.Test
 
 @ExtendWith(MockKExtension::class)
@@ -26,8 +23,7 @@ class WaitlistCheckOrderUseCaseTest {
     fun `대기순번체크 테스트`(){
     	//given
         val req = WaitlistRequest.Position("token20")
-        every { waitlistReader.findByToken("token20") } returns Waitlist(20, "token20", "user2", null, Waitlist.Status.WAITING)
-        every { waitlistReader.getLastAvailableWaitlist() } returns Waitlist(10, "token10", "user1", null, Waitlist.Status.AVAILABLE)
+        every { waitlistReader.getPosition(req.token) } returns 10L
 
         //when
         val res = waitlistCheckOrderUseCase.execute(req)
