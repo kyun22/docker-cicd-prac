@@ -8,7 +8,7 @@ import kr.shlee.domain.common.error.WaitlistException
 import kr.shlee.domain.waitlist.model.Waitlist
 import kr.shlee.domain.waitlist.repository.WaitListRepository
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import java.time.LocalDateTime
@@ -24,8 +24,7 @@ class WaitlistReaderTest {
 
     @Test
     fun `미리 발급받은 토큰 가져오기 실패 - 발급받은 적 없는 유저`() {
-        //given
-        every { waitListRepository.findByIdExceptExpired("user1") } returns null
+        every { waitListRepository.findByUserId("user1") } returns null
 
         //when
         val waitlist = waitlistReader.findAlreadyRegistered("user1")
@@ -37,13 +36,11 @@ class WaitlistReaderTest {
     @Test
     fun `미리 발급받은 토큰 가져오기 실패 - 미리 발급 받았으나 만료된 경우`() {
         //given
-        every { waitListRepository.findByIdExceptExpired("user1") } returns Waitlist(
-            1,
-            "token1",
-            "user1",
-            LocalDateTime.now(),
+        val find = Waitlist(1, "token1", "user1", LocalDateTime.now(),
             Waitlist.Status.EXPIRED
         )
+        every { waitListRepository.findByUserId("user1") } returns find
+        every { waitListRepository.findByIdExceptExpired("user1") } returns find
 
         //when
         val waitlist = waitlistReader.findAlreadyRegistered("user1")
@@ -56,13 +53,11 @@ class WaitlistReaderTest {
     @Test
     fun `미리 발급받은 토큰 가져오기 성공`() {
         //given
-        every { waitListRepository.findByIdExceptExpired("user1") } returns Waitlist(
-            1,
-            "token1",
-            "user1",
-            LocalDateTime.now(),
+        val find = Waitlist(1, "token1", "user1", LocalDateTime.now(),
             Waitlist.Status.WAITING
         )
+        every { waitListRepository.findByUserId("user1") } returns find
+        every { waitListRepository.findByIdExceptExpired("user1") } returns find
 
         //when
         val waitlist = waitlistReader.findAlreadyRegistered("user1")

@@ -20,7 +20,7 @@ class WaitlistCustomRepository (
             .from(waitlist)
             .where(waitlist.status.eq(Waitlist.Status.AVAILABLE))
             .orderBy(waitlist.createdAt.desc())
-            .fetchOne()
+            .fetchFirst()
     }
 
     fun getAvailableCount(): Long {
@@ -33,7 +33,7 @@ class WaitlistCustomRepository (
         return query.selectFrom(waitlist)
             .where(waitlist.status.eq(Waitlist.Status.WAITING))
             .orderBy(waitlist.createdAt.asc())
-            .fetchOne()
+            .fetchFirst()
     }
 
     fun updateExpiredByUpdateStatusAt() {

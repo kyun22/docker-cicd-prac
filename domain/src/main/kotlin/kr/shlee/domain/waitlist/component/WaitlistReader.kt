@@ -11,7 +11,7 @@ class WaitlistReader (
 ){
     fun findAlreadyRegistered(userId: String): Waitlist? {
         waitListRepository.findByUserId(userId)
-            ?: throw WaitlistException(WaitlistException.WaitlistErrorResult.USER_NOT_FOUND)
+            ?: return null
 
         return waitListRepository.findByIdExceptExpired(userId)
     }
@@ -31,7 +31,7 @@ class WaitlistReader (
 
     fun getPosition(token: String): Long {
         val waitlist = (waitListRepository.findByToken(token)
-            ?: throw WaitlistException(WaitlistException.WaitlistErrorResult.UNREGISTERED_USER))
+            ?: throw WaitlistException(WaitlistException.WaitlistErrorResult.USER_NOT_FOUND))
 
         return waitListRepository.getLastAvailableWaitlist()
             ?.let { last -> waitlist.getPositionFromLastWaitlist(last) }
