@@ -53,10 +53,10 @@ class EventFinderTest {
     @Test
     fun `Event 검색 - eventId로 찾기`() {
         //given
-        every { eventRepository.findById("user1") } returns makeDummyEvent("event1", LocalDate.now())
+        every { eventRepository.findById("event1") } returns makeDummyEvent("event1", LocalDate.now())
 
         //when
-        val event = eventFinder.find("user1")!!
+        val event = eventFinder.find("event1")!!
 
         //then
         assertThat(event.id).isEqualTo("event1")
@@ -65,10 +65,10 @@ class EventFinderTest {
     @Test
     fun `Event 검색 실패 - eventId로 찾기`(){
         //given
-        every { eventRepository.findById("user1") } returns null
+        every { eventRepository.findById("event1") } returns null
 
         //when
-        assertThrows<EventException> { eventFinder.find("user1") }
+        assertThrows<EventException> { eventFinder.find("event1") }
     }
 
     @Test
@@ -93,10 +93,10 @@ class EventFinderTest {
     @Test
     fun `Event 검색 실패 - 해당 Date의 Event가 존재하지 않는 경우`(){
         //given
-        every { eventRepository.findById("user1") } returns null
+        every { eventRepository.findByDate(DateUtils.convertStringToLocalDate("2023-03-25")) } returns emptyList()
 
         //when
-        assertThrows<EventException> { eventFinder.find("user1") }
+        assertThrows<EventException> { eventFinder.findByDate("2023-03-25") }
     }
 
 }

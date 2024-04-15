@@ -5,7 +5,6 @@ import kr.shlee.api.ticket.dto.TicketResponse
 import kr.shlee.domain.point.component.UserManager
 import kr.shlee.domain.ticket.component.SeatFinder
 import kr.shlee.domain.ticket.component.TicketManager
-import kr.shlee.domain.ticket.model.Ticket
 import org.springframework.stereotype.Component
 
 @Component
@@ -18,7 +17,7 @@ class TicketReserveUseCase (
     // 예약 완료 후 5분간 유지 -> 5분간 결재하지 않으면 다시 AVAILABLE
     fun execute(request: TicketRequest.Reserve): TicketResponse.Reserve {
         // user를 가져온다.
-        val user = userManager.find(request.userId)
+        val user = userManager.get(request.userId)
 
         // seats를 가져온다.
         val seats = seatFinder.findSeats(request.seatIds)

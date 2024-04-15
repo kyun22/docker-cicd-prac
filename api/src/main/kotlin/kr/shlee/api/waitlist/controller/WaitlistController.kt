@@ -21,7 +21,7 @@ class WaitlistController(
     fun register(
         @RequestBody request: WaitlistRequest.Register
     ): WaitlistResponse.Register {
-        return registerUseCase.execute(request)
+        return registerUseCase(request)
     }
 
     @GetMapping("/position")

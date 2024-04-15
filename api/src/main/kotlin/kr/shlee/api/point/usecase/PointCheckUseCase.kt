@@ -11,6 +11,6 @@ class PointCheckUseCase(
 ) {
 
     fun execute(userId: String): User {
-        return userManager.find(userId) ?: throw PointException(PointException.PointErrorResult.USER_NOT_EXISTS)
+        return userManager.get(userId)
     }
 }

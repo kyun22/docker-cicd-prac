@@ -16,8 +16,8 @@ class EventFinder(
         return events
     }
 
-    fun find(userId: String): Event {
-        return eventRepository.findById(userId) ?: throw EventException(EventException.EventErrorResult.RESULT_IS_EMPTY)
+    fun find(eventId: String): Event {
+        return eventRepository.findById(eventId) ?: throw EventException(EventException.EventErrorResult.RESULT_IS_EMPTY)
     }
 
     fun findByDate(dateString: String): List<Event> {
