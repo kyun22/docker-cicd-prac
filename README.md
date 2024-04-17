@@ -1,5 +1,9 @@
 ## Chapter2. 서버구축 (3-5주차)
 
+### week5
+#### 트러블슈팅 #1
+
+
 ### week4
 #### Swagger 적용 캡처사진
 ![img.png](resources/diagrams/images/swagger-screenshot.png)

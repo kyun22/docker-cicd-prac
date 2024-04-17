@@ -20,6 +20,11 @@ class UserManager(
             ?: throw UserException(UserException.UserErrorResult.USER_NOT_FOUND)
     }
 
+    fun getWithLock(userId: String): User {
+        return userRepository.findByIdWithLock(userId)
+            ?: throw UserException(UserException.UserErrorResult.USER_NOT_FOUND)
+    }
+
     fun save(user: User): User {
         return userRepository.save(user)
     }

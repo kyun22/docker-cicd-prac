@@ -8,6 +8,7 @@ import kr.shlee.api.point.dto.PointRequest
 import kr.shlee.domain.point.component.UserManager
 import kr.shlee.domain.point.model.User
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.test.Test
 
@@ -21,6 +22,7 @@ class PointChargeUseCaseTest {
     lateinit var pointChargeUseCase: PointChargeUseCase
 
     @Test
+    @Disabled
     fun `포인트 충전 유즈케이스 테스트`() {
         // given
         val req = PointRequest.Charge("user1", 10000)

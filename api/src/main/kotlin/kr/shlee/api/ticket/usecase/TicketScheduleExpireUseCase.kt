@@ -1,9 +1,11 @@
 package kr.shlee.api.ticket.usecase
 
 import kr.shlee.domain.ticket.component.TicketManager
+import org.springframework.context.annotation.Profile
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
+@Profile("!local")
 @Component
 class TicketScheduleExpireUseCase (
     private val ticketManager: TicketManager

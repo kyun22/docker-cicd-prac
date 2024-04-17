@@ -3,13 +3,18 @@ package kr.shlee.domain.point.model
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
+import jakarta.persistence.Table
+import jakarta.persistence.Version
 import kr.shlee.domain.common.error.UserException
 
 @Entity
+@Table(name = "tb_user")
 class User(
-    @Id @GeneratedValue
+    @Id
     val id: String,
-    var point: Int
+    var point: Int,
+    @Version
+    var version: Long? = null
 ) {
 
     fun addPoint(amount: Int) {
