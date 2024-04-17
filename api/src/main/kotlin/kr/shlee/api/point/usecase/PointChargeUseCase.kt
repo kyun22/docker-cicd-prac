@@ -11,10 +11,11 @@ import org.springframework.transaction.annotation.Transactional
 class PointChargeUseCase(
     val userManager: UserManager
 ) {
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional
     fun execute(request: PointRequest.Charge): User? {
-        var user = userManager.getWithLock(request.userId)
-        return userManager.save(user.apply { addPoint(request.amount) })
+        val user = userManager.getWithLock(request.userId)
+        user.addPoint(request.amount)
+        return user
     }
 }
 

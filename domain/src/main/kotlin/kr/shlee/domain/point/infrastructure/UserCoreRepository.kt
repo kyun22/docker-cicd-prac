@@ -16,7 +16,7 @@ class UserCoreRepository(
     }
 
     override fun findByIdWithLock(userId: String): User? {
-        return userJpaRepository.findByIdOrNull(userId)
+        return userJpaRepository.findByIdForUpdate(userId)
     }
 
     override fun save(user: User): User {

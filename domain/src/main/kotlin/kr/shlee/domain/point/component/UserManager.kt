@@ -6,6 +6,7 @@ import kr.shlee.domain.point.model.User
 import kr.shlee.domain.point.repository.UserRepository
 import org.springframework.data.jpa.repository.Lock
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 class UserManager(

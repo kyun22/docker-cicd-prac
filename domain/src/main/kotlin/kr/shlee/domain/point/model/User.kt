@@ -8,7 +8,7 @@ import jakarta.persistence.Version
 import kr.shlee.domain.common.error.UserException
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "member")
 class User(
     @Id
     val id: String,

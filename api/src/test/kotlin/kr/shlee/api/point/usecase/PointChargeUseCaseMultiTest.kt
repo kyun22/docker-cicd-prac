@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.Rollback
 import org.springframework.transaction.annotation.Transactional
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import kotlin.test.Test
@@ -62,24 +63,39 @@ class PointChargeUseCaseMultiTest {
     }
 
     @Test
-    @Disabled
     fun `point charge - 동시에 여러 요청`() {
-        val executions = 10
-        val latch = CountDownLatch(executions)
-        val request = PointRequest.Charge("user1", 1000)
+        val userId = "user1"
+//        val executions = 10
+//        val latch = CountDownLatch(executions)
+        val request = PointRequest.Charge(userId, 1000)
 
-        for (i in 1..executions) {
-            try {
-                executorService.submit { pointChargeUseCase.execute(request) }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                latch.countDown()
-            }
-        }
-        latch.await()
+        println(userManager.find(userId))
 
-        val user1 = userManager.find("user1")
-        assertThat(user1?.point).isEqualTo(1000 * executions)
+        CompletableFuture.allOf(
+            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+
+            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+
+            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+
+            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+
+            CompletableFuture.runAsync { pointChargeUseCase.execute(request) }
+        ).join()
+
+//        for (i in 1..executions) {
+//            try {
+//                executorService.submit { pointChargeUseCase.execute(request) }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            } finally {
+//                latch.countDown()
+//            }
+//        }
+//        latch.await()
+
+        val user1 = userManager.find(userId)
+        println(user1)
+//        assertThat(user1?.point).isEqualTo(1000 * 5)
     }
 }

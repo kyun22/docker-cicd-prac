@@ -4,6 +4,7 @@ import kr.shlee.domain.waitlist.model.Waitlist
 import kr.shlee.domain.waitlist.repository.WaitListRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 @Repository
 class WaitlistCoreRepository(
@@ -39,6 +40,7 @@ class WaitlistCoreRepository(
         return waitlistCustomRepository.getFirstWaitingWaitlist()
     }
 
+    @Transactional
     override fun updateExpiredByUpdateStatusAt() {
         return waitlistCustomRepository.updateExpiredByUpdateStatusAt()
     }
