@@ -11,8 +11,7 @@ import kr.shlee.domain.ticket.model.Concert
 import kr.shlee.domain.ticket.model.Seat
 import kr.shlee.domain.ticket.model.Ticket
 import kr.shlee.domain.ticket.repository.SeatRepository
-import org.assertj.core.api.Assertions
-import org.junit.jupiter.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
@@ -47,7 +46,7 @@ class TicketPaymentUseCaseTest {
         val throws = org.junit.jupiter.api.assertThrows<UserException> { ticketPaymentUseCase(request) }
 
         //then
-        Assertions.assertThat(throws.errorResult).isEqualTo(UserException.UserErrorResult.USER_NOT_FOUND)
+        assertThat(throws.errorResult).isEqualTo(UserException.UserErrorResult.USER_NOT_FOUND)
     }
 
 
@@ -61,7 +60,7 @@ class TicketPaymentUseCaseTest {
         val throws = org.junit.jupiter.api.assertThrows<TicketException> { ticketPaymentUseCase(request) }
 
         //then
-        Assertions.assertThat(throws.errorResult).isEqualTo(TicketException.TicketErrorResult.TICKET_NOT_FOUND)
+        assertThat(throws.errorResult).isEqualTo(TicketException.TicketErrorResult.TICKET_NOT_FOUND)
     }
 
     @Test
@@ -83,7 +82,7 @@ class TicketPaymentUseCaseTest {
         val throws = org.junit.jupiter.api.assertThrows<TicketException> { ticketPaymentUseCase(paymentRequest) }
 
         //then
-        Assertions.assertThat(throws.errorResult).isEqualTo(TicketException.TicketErrorResult.NOT_TICKET_OWNER)
+        assertThat(throws.errorResult).isEqualTo(TicketException.TicketErrorResult.NOT_TICKET_OWNER)
     }
 
     @Test
@@ -104,7 +103,7 @@ class TicketPaymentUseCaseTest {
         val throws = org.junit.jupiter.api.assertThrows<TicketException> { ticketPaymentUseCase(paymentRequest) }
 
         //then
-        Assertions.assertThat(throws.errorResult).isEqualTo(TicketException.TicketErrorResult.USER_POINT_NOT_ENOUGH)
+        assertThat(throws.errorResult).isEqualTo(TicketException.TicketErrorResult.USER_POINT_NOT_ENOUGH)
     }
 
     @Test
@@ -128,10 +127,11 @@ class TicketPaymentUseCaseTest {
             val paymentResponse = ticketPaymentUseCase(paymentRequest)
 
             //then
-            Assertions.assertThat(paymentResponse.tickets.all { ticket -> ticket.status == Ticket.Status.COMPLETE_PAYMENT })
-            Assertions.assertThat(paymentResponse.userId).isEqualTo(user1.id)
-            Assertions.assertThat(paymentResponse.point).isEqualTo(user1.point - seat1.price - seat2.price - seat3.price)
-
+            assertThat(paymentResponse.tickets.all { ticket -> ticket.status == Ticket.Status.COMPLETE_PAYMENT })
+            assertThat(paymentResponse.userId).isEqualTo(user1.id)
+            assertThat(paymentResponse.point).isEqualTo(user1.point - seat1.price - seat2.price - seat3.price)
+            val paidSeats = paymentResponse.tickets.map { ticket -> ticket.seat }
+            assertThat(paidSeats.all { seat -> seat.status == Seat.Status.PURCHASED }).isTrue()
         }
     }
 }

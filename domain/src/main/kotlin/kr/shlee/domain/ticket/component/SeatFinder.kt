@@ -11,12 +11,10 @@ class SeatFinder(
 ) {
     fun findSeats(seatIds: List<String>): List<Seat> {
         val seats = seatRepository.findSeats(seatIds)
-        if(!checkAllAvailable(seats)) throw SeatException(SeatException.SeatErrorResult.NOT_AVAILABLE_SEATS)
+        if (!seats.all { it.isAvailable() })
+            throw SeatException(SeatException.SeatErrorResult.NOT_AVAILABLE_SEATS)
         return seats
     }
-
-    private fun checkAllAvailable(seats: List<Seat>) =
-        seats.all { seat -> seat.status == Seat.Status.AVAILABLE }
 
     fun findSeatsByEventId(eventId: String): List<Seat> {
         return seatRepository.findAllByEventId(eventId)

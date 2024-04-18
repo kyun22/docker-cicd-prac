@@ -54,6 +54,8 @@ class TicketReserveUseCaseTest {
         assertThat(response.totalPrice).isEqualTo(seat1.price + seat2.price + seat3.price)
         assertThat(response.quantity).isEqualTo(seatIds.size)
         assertThat(response.status).isEqualTo(Ticket.Status.WAITING_PAYMENT)
+        val reservedSeats = response.tickets.map { ticket -> ticket.seat }
+        assertThat(reservedSeats.all { seat -> seat.status == Seat.Status.RESERVED }).isTrue()
     }
 
     @Test

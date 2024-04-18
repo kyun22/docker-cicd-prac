@@ -1,12 +1,9 @@
 package kr.shlee.domain.point.component
 
-import jakarta.persistence.LockModeType
 import kr.shlee.domain.common.error.UserException
 import kr.shlee.domain.point.model.User
 import kr.shlee.domain.point.repository.UserRepository
-import org.springframework.data.jpa.repository.Lock
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 
 @Component
 class UserManager(

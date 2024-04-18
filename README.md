@@ -20,7 +20,9 @@ Spring REST Docs + Swagger 로 구성 중 문제
 - 원인 1: @Lock 을 JpaRepsoitory에 걸지 않음
   - Spring Data JPA기능으로 JpaRepository에 걸어야함
 
-테스트에 @Transactional 이 걸려있어서?
+- 원인 2: 테스트에 @Transactional 이 걸려있어서
+  - 해당하는 테스트 클래스나 테스트 메서드에 @Transactional이 걸려있으면 유저가 조회 안된다.
+  - 이유는 아직모름.. Transactional 제거하고 ddl-auto를 create-drop으로 테스트
 
 #### 트러블슈팅 #3 테이블 설계 변경
 Event - Seat (1:N) 양방향 연관관계 제거
@@ -34,6 +36,15 @@ EventResponse에 Seat정보를 함께 응답으로 내려주기 위해서 Seat�
 #### 트러블슈팅 #4 통합테스트 작성에 대한 고민
 UseCase만 테스트할건지? Repository도 테스트 하는지?
 각 컴포넌트 별로? 아니면 액터의 유즈케이스를 그대로 따라가면서?
+
+#### 트러블슈팅 #5 insert 두번
+증상)
+티켓 예약(결제 5분 대기) 이후 결제하는 통합테스트 작성중
+1. 예약 -> Ticket 저장, Status: WAIT
+2. 결제 -> 1항의 티켓 Status를 COMPLETE로 없데이트
+할거라고 생각했는데 그렇지 않고 두번의 insert로 동작함.
+
+
 
 ### week4
 #### Swagger 적용 캡처사진

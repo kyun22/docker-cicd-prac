@@ -5,7 +5,7 @@ import kr.shlee.domain.common.base.BaseEntity
 import kr.shlee.domain.point.model.User
 
 @Entity
-class Ticket(
+data class Ticket(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: String?,
     @ManyToOne

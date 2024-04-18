@@ -6,5 +6,6 @@ interface TicketRepository {
     fun save(ticket: Ticket) : Ticket
     fun findAllByIds(ticketIds: List<String>): List<Ticket>
     fun findAllReservedAndNotPaidTickets(): List<Ticket>?
+    fun findAll(): List<Ticket>
 
 }

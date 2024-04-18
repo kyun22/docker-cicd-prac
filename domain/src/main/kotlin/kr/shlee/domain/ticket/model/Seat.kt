@@ -5,7 +5,7 @@ import kr.shlee.domain.event.model.Event
 import java.time.LocalDateTime
 
 @Entity
-class Seat (
+data class Seat (
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: String,
     @ManyToOne(fetch = FetchType.LAZY)
@@ -14,7 +14,9 @@ class Seat (
     val number: String,
     val price: Int,
     var reservedAt: LocalDateTime?,
-    var status: Status
+    var status: Status,
+    @Version
+    var version: Long? = 0L
 ){
     enum class Status {
         AVAILABLE, RESERVED, PURCHASED
@@ -28,6 +30,10 @@ class Seat (
     fun refreshStatus() {
         status = Status.AVAILABLE
         reservedAt = null
+    }
+
+    fun isAvailable(): Boolean {
+        return status == Status.AVAILABLE
     }
 }
 
