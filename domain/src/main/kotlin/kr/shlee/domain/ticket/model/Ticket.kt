@@ -1,17 +1,12 @@
 package kr.shlee.domain.ticket.model
 
-import jakarta.persistence.CascadeType
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToOne
+import jakarta.persistence.*
 import kr.shlee.domain.common.base.BaseEntity
 import kr.shlee.domain.point.model.User
 
 @Entity
 class Ticket(
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: String?,
     @OneToOne(cascade = [CascadeType.PERSIST])
     @JoinColumn(name = "user_id")

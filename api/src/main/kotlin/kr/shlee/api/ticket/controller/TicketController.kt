@@ -18,7 +18,7 @@ class TicketController(
         @RequestHeader("X-USER-TOKEN") token: String?,
         @RequestBody request: TicketRequest.Reserve
     ): TicketResponse.Reserve {
-        return ticketReserveUseCase.execute(request)
+        return ticketReserveUseCase(request)
     }
 
     @PostMapping("/payments")

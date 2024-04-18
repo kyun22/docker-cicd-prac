@@ -59,7 +59,7 @@ class TicketControllerTest {
         tickets.add(Ticket("ticket1", User("user1", 0), seat1, Ticket.Status.WAITING_PAYMENT))
         tickets.add(Ticket("ticket2", User("user1", 0), seat2, Ticket.Status.WAITING_PAYMENT))
         tickets.add(Ticket("ticket3", User("user1", 0), seat3, Ticket.Status.WAITING_PAYMENT))
-        every { ticketReserveUseCase.execute(request) } returns TicketResponse.Reserve(
+        every { ticketReserveUseCase(request) } returns TicketResponse.Reserve(
             tickets,
             tickets.first().user.id,
             tickets.size,
