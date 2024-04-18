@@ -1,19 +1,23 @@
 package kr.shlee.api.event.usecase
 
-import kr.shlee.domain.event.repository.EventRepository
 import kr.shlee.api.event.dto.EventResponse
-import kr.shlee.domain.common.error.EventException
+import kr.shlee.domain.event.component.EventFinder
+import kr.shlee.domain.ticket.component.SeatFinder
 import org.springframework.stereotype.Component
 
 @Component
 class EventSearchByIdUseCase(
-    val eventRepository: EventRepository,
+    val eventFinder: EventFinder,
+    val seatFinder: SeatFinder
 ) {
-    fun execute(token: String?, eventId: String): EventResponse {
+    operator fun invoke(eventId: String): EventResponse {
+        // event를 가져온다
+        val event = eventFinder.get(eventId)
 
-        val event = eventRepository.findById(eventId) ?: throw EventException(EventException.EventErrorResult.RESULT_IS_EMPTY)
+        // 해당 이벤트의 seats를 가져온다
+        val seats = seatFinder.findSeatsByEventId(eventId)
 
-        return EventResponse.of(event)
+        return EventResponse.of(event, seats)
     }
 
 }

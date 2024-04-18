@@ -16,7 +16,7 @@ class EventFinder(
         return events
     }
 
-    fun find(eventId: String): Event {
+    fun get(eventId: String): Event {
         return eventRepository.findById(eventId) ?: throw EventException(EventException.EventErrorResult.RESULT_IS_EMPTY)
     }
 

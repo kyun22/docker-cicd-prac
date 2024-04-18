@@ -1,15 +1,10 @@
 package kr.shlee.api.event.controller
 
 import kr.shlee.api.event.dto.EventResponse
-import kr.shlee.api.event.usecase.EventSearchUseCase
 import kr.shlee.api.event.usecase.EventSearchByDateUseCase
 import kr.shlee.api.event.usecase.EventSearchByIdUseCase
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import kr.shlee.api.event.usecase.EventSearchUseCase
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/events")
@@ -22,7 +17,7 @@ class EventController(
     fun searchAll(
         @RequestHeader("X-USER-TOKEN") token: String?,
     ): List<EventResponse> {
-        return eventSearchUseCase.execute(token)
+        return eventSearchUseCase()
     }
 
     @GetMapping("/{eventId}")
@@ -30,7 +25,15 @@ class EventController(
         @RequestHeader("X-USER-TOKEN") token: String?,
         @PathVariable eventId: String
     ): EventResponse {
-        return eventSearchByIdUseCase.execute(token, eventId)
+        return eventSearchByIdUseCase(eventId)
+    }
+
+    @GetMapping("/{eventId}/seats")
+    fun searchSeatByEventId(
+        @RequestHeader("X-USER-TOKEN") token: String?,
+        @PathVariable eventId: String
+    ) {
+
     }
 
     @GetMapping("/dates/{dateString}")

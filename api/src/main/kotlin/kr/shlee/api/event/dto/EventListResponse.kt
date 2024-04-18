@@ -12,7 +12,7 @@ class EventListResponse(
             val list = mutableListOf<EventResponse>()
             events.map { event: Event ->
                 list.add(
-                    EventResponse.of(event)
+                    EventResponse.of(event, emptyList())
                 )
             }
             return list
@@ -29,17 +29,17 @@ data class EventResponse(
     val date: String
 ) {
     companion object {
-        fun convertSeatsToVo(seats: MutableList<Seat>): List<SeatVo> {
+        fun convertSeatsToVo(seats: List<Seat>): List<SeatVo> {
             return seats.map { seat: Seat -> SeatVo.of(seat) }
         }
 
-        fun of(event: Event): EventResponse {
+        fun of(event: Event, seats: List<Seat>): EventResponse {
             return EventResponse(
                 id = event.id,
                 name = event.concert.name,
                 location = event.location,
-                availableSeats = event.getAvailableSeatCount(),
-                seats = convertSeatsToVo(event.seats),
+                availableSeats = seats.filter { seat -> seat.status == Seat.Status.AVAILABLE }.size,
+                seats = convertSeatsToVo(seats),
                 date = event.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 )
         }

@@ -16,7 +16,7 @@ class TicketTest {
             seats.add(
                 Seat(
                     "s1",
-                    Event("event1", "loc", LocalDate.now(), Concert("con1", "name", "singer"), mutableListOf<Seat>()),
+                    Event("event1", "loc", LocalDate.now(), Concert("con1", "name", "singer")),
                     i.toString(),
                     10000,
                     null,
@@ -37,7 +37,7 @@ class TicketTest {
     fun `결제 처리 테스트`() {
         // given
         val user = User("user1", 10000)
-        val seat = Seat("s1", Event("event1", "loc", LocalDate.now(), Concert("con1", "name", "singer"), mutableListOf<Seat>()), "1", 10000, null, Seat.Status.RESERVED)
+        val seat = Seat("s1", Event("event1", "loc", LocalDate.now(), Concert("con1", "name", "singer")), "1", 10000, null, Seat.Status.RESERVED)
         val ticket = Ticket.makeTickets(user, listOf(seat)).first()
         assertThat(ticket.status).isEqualTo(Ticket.Status.WAITING_PAYMENT)
         assertThat(ticket.seat.status).isEqualTo(Seat.Status.RESERVED)
@@ -55,7 +55,7 @@ class TicketTest {
     @Test
     fun `티켓 만료 테스트 - 티켓을 만료하고 좌석을 refresh 한다`(){
         //given
-        val seat = Seat("seat1", Event("event1", "loca", LocalDate.now(), Concert("concert1", "콘서트", "아이유"), mutableListOf<Seat>()), "1", 10000, null, Seat.Status.RESERVED)
+        val seat = Seat("seat1", Event("event1", "loca", LocalDate.now(), Concert("concert1", "콘서트", "아이유")), "1", 10000, null, Seat.Status.RESERVED)
         val ticket = Ticket("ticket1", User("user1", 0), seat, Ticket.Status.WAITING_PAYMENT)
 
         //when

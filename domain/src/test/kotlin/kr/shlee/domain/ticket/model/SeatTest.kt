@@ -14,7 +14,7 @@ class SeatTest {
         val seat = Seat(
             "seat1",
             Event("event1", "loca", LocalDate.now(),
-                Concert("concert1", "콘서트", "아이유"), mutableListOf<Seat>()),
+                Concert("concert1", "콘서트", "아이유")),
             "1",
             10000,
             null,
@@ -34,7 +34,7 @@ class SeatTest {
         val seat = Seat(
             "seat1",
             Event("event1", "loca", LocalDate.now(),
-                Concert("concert1", "콘서트", "아이유"), mutableListOf<Seat>()),
+                Concert("concert1", "콘서트", "아이유")),
             "1",
             10000,
             LocalDateTime.now().minusMinutes(6),

@@ -17,4 +17,8 @@ class SeatCustomRepository(
         return query.selectFrom(seat).where(seat.id.`in`(seatIds)).fetch()
     }
 
+    fun findAllByEventId(eventId: String): List<Seat> {
+        return query.selectFrom(seat).where(seat.event.id.eq(eventId)).fetch()
+    }
+
 }

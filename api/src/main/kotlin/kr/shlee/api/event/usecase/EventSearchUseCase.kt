@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class EventSearchUseCase(
     private val eventFinder: EventFinder,
 ) {
-    fun execute(token: String?): List<EventResponse> {
+    operator fun invoke(): List<EventResponse> {
         return EventListResponse.of(eventFinder.findAll()).toList()
     }
 

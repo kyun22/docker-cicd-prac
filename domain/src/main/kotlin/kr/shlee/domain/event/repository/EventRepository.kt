@@ -8,4 +8,5 @@ interface EventRepository {
     fun findById(eventId: String): Event?
     fun findByDate(date: LocalDate): List<Event>
     fun findAll(): List<Event>
+    fun save(event: Event): Event
 }

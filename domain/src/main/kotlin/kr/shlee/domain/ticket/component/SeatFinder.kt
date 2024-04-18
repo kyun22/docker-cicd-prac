@@ -17,4 +17,8 @@ class SeatFinder(
 
     private fun checkAllAvailable(seats: List<Seat>) =
         seats.all { seat -> seat.status == Seat.Status.AVAILABLE }
+
+    fun findSeatsByEventId(eventId: String): List<Seat> {
+        return seatRepository.findAllByEventId(eventId)
+    }
 }

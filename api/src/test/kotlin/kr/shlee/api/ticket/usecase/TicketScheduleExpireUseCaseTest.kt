@@ -30,9 +30,9 @@ class TicketScheduleExpireUseCaseTest {
     fun `예약 후 5분이 지난 티켓은 만료시킨다`() {
         //given
         @SpyK
-        val seat1 = Seat("seat1", Event("event1", "loca", LocalDate.now(), Concert("concert1", "콘서트", "아이유"), mutableListOf<Seat>()), "1", 10000, null, Seat.Status.RESERVED)
+        val seat1 = Seat("seat1", Event("event1", "loca", LocalDate.now(), Concert("concert1", "콘서트", "아이유")), "1", 10000, null, Seat.Status.RESERVED)
         @SpyK
-        val seat2 = Seat("seat2", Event("event1", "loca", LocalDate.now(), Concert("concert1", "콘서트", "아이유"), mutableListOf<Seat>()), "2", 10000, null, Seat.Status.RESERVED)
+        val seat2 = Seat("seat2", Event("event1", "loca", LocalDate.now(), Concert("concert1", "콘서트", "아이유")), "2", 10000, null, Seat.Status.RESERVED)
         @SpyK
         val ticket1 = Ticket("ticket1", User("user1", 0), seat1, Ticket.Status.WAITING_PAYMENT)
         @SpyK

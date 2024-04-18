@@ -113,7 +113,7 @@ class TicketManagerTest {
     private fun makeDummySeat(i: Int) =
         Seat(
             "s1",
-            Event("event1", "loc", LocalDate.now(), Concert("con1", "name", "singer"), mutableListOf<Seat>()),
+            Event("event1", "loc", LocalDate.now(), Concert("con1", "name", "singer")),
             i.toString(),
             1000,
             null,

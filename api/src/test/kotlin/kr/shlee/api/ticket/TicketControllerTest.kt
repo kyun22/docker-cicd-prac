@@ -51,7 +51,7 @@ class TicketControllerTest {
         //given
         val request = TicketRequest.Reserve("user1", "event1", listOf("1L", "2L", "3L"))
         val json = objectMapper.writeValueAsString(request)
-        val event = Event("event1", "서울", LocalDate.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
+        val event = Event("event1", "서울", LocalDate.now(), Concert("concert1", "콘서트1", "아이유"))
         val seat1 = Seat("1", event, "1", 10000, null, Seat.Status.AVAILABLE)
         val seat2 = Seat("2", event, "2", 10000, null, Seat.Status.AVAILABLE)
         val seat3 = Seat("3", event, "3", 10000, null, Seat.Status.AVAILABLE)
@@ -86,7 +86,7 @@ class TicketControllerTest {
         val ticketIds = listOf("ticket1", "ticket2", "ticket3")
         val request = TicketRequest.Payment("user1", ticketIds)
         val json = objectMapper.writeValueAsString(request)
-        val event = Event("event1", "서울", LocalDate.now(), Concert("concert1", "콘서트1", "아이유"), mutableListOf())
+        val event = Event("event1", "서울", LocalDate.now(), Concert("concert1", "콘서트1", "아이유"))
         val seat1 = Seat("1L", event, "1", 10000, null, Seat.Status.PURCHASED)
         val seat2 = Seat("2L", event, "2", 10000, null, Seat.Status.PURCHASED)
         val seat3 = Seat("3L", event, "3", 10000, null, Seat.Status.PURCHASED)

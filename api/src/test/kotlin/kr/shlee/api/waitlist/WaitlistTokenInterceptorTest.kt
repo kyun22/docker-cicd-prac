@@ -38,10 +38,10 @@ class WaitlistTokenInterceptorTest {
     @Test
     fun `토큰검증 인터셉터 성공 - 토큰이 유효한 경우 200을 반환`() {
         val events = listOf<EventResponse>(
-            EventResponse("event1", "이벤트1", "서울", 10, makeDymmySeatVos(), "2024-03-25"),
+            EventResponse("event1", "이벤트1", "서울", 10, emptyList(),"2024-03-25"),
         )
         Mockito.`when`(tokenValidator.validate("validToken")).thenReturn(true)
-        Mockito.`when`(eventSearchUseCase.execute("validToken")).thenReturn(events)
+        Mockito.`when`(eventSearchUseCase()).thenReturn(events)
         mockMvc.perform(get("/events").header("X-USER-TOKEN", "validToken"))
             .andExpect(status().isOk)
     }

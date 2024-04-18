@@ -39,14 +39,10 @@ class EventFinderTest {
 
         //then
         assertThat(result.size).isEqualTo(3)
-        assertThat(result[0].seats.size).isEqualTo(10)
     }
 
     private fun makeDummyEvent(eventId: String, localDate: LocalDate): Event {
         val event = Event(eventId, "서울", localDate, Concert("concert1", "콘서트1", "아이유"))
-        for (i in 1..10) {
-            event.addSeat(Seat(i.toString(), event, i.toString(), 10000, null, Seat.Status.AVAILABLE))
-        }
         return event
     }
 
@@ -56,7 +52,7 @@ class EventFinderTest {
         every { eventRepository.findById("event1") } returns makeDummyEvent("event1", LocalDate.now())
 
         //when
-        val event = eventFinder.find("event1")!!
+        val event = eventFinder.get("event1")!!
 
         //then
         assertThat(event.id).isEqualTo("event1")
@@ -68,7 +64,7 @@ class EventFinderTest {
         every { eventRepository.findById("event1") } returns null
 
         //when
-        assertThrows<EventException> { eventFinder.find("event1") }
+        assertThrows<EventException> { eventFinder.get("event1") }
     }
 
     @Test

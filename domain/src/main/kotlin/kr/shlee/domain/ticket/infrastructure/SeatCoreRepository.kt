@@ -16,4 +16,12 @@ class SeatCoreRepository(
     override fun findSeats(seatIds: List<String>): List<Seat> {
         return seatCustomRepository.findSeatByIds(seatIds)
     }
+
+    override fun findAllByEventId(eventId: String): List<Seat> {
+        return seatCustomRepository.findAllByEventId(eventId)
+    }
+
+    override fun save(seat: Seat): Seat {
+        return seatJpaRepository.save(seat)
+    }
 }
