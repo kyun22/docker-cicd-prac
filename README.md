@@ -1,8 +1,39 @@
 ## Chapter2. 서버구축 (3-5주차)
 
 ### week5
-#### 트러블슈팅 #1
+#### 트러블슈팅 #1 Swagger 적용
+Spring REST Docs + Swagger 로 구성 중 문제
+1. org.springframework.restdocs 의존성이 import 되지 않음.
+    - ![img.png](resources/diagrams/images/troubleshooting/img.png)
+    - spring rest docs 작성을 위해서 필요한 의존성들이 들어오지 않음 
+      - testImplementation("com.epages:restdocs-api-spec-mockmvc:0.19.2") 
+    - 해결: 추가적인 의존성 설정 (build.gradle.kts)
+      - testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+      - ![img_1.png](resources/diagrams/images/troubleshooting/img_1.png)
+2. 실행 후 바로 openapi3.yaml 내용으로 띄우기
+    - 해결 : swagger-initializer.js 수정
+    - ![img_2.png](resources/diagrams/images/troubleshooting/img_2.png)
 
+#### 트러블슈팅 #2 Transactional 적용안됨
+유저 포인트 충전 request (id:"user1", amount:1000)이 동시에 여러번 들어오는 경우 충전이 되지 않음
+증상1) 유저가 조회되지 않음
+- 원인 1: @Lock 을 JpaRepsoitory에 걸지 않음
+  - Spring Data JPA기능으로 JpaRepository에 걸어야함
+
+테스트에 @Transactional 이 걸려있어서?
+
+#### 트러블슈팅 #3 테이블 설계 변경
+Event - Seat (1:N) 양방향 연관관계 제거
+EventResponse에 Seat정보를 함께 응답으로 내려주기 위해서 Seat을 넣어놨었는데 다음의 이유로 연관관계를 제거하였다.
+- 테스트 코드 작성이 어려움 : Event를 생성할때 Seat도 생성해서 넣어줘야 하고, 또 Seat에도 넣어줘야함.  
+- Lock이 양쪽으로 걸릴 것 같아 제거
+- Ticket 판매의 대상은 결국 Seat이기 때문에 Seat에서 정보를 갖는게 좋다고 생각.
+- Concert, Event, Seat의 모든 정보 조회를 위해 다 조인해야해서, Seat에서는 concert, Event를 모두 갖도록 함.
+- 이벤트의 리스트 응답에는 Seat 정보는 포함하지 않음. 1건 조회(id로 조회)에서만 Seat정보를 내려줌
+
+#### 트러블슈팅 #4 통합테스트 작성에 대한 고민
+UseCase만 테스트할건지? Repository도 테스트 하는지?
+각 컴포넌트 별로? 아니면 액터의 유즈케이스를 그대로 따라가면서?
 
 ### week4
 #### Swagger 적용 캡처사진
