@@ -44,7 +44,10 @@ UseCase만 테스트할건지? Repository도 테스트 하는지?
 2. 결제 -> 1항의 티켓 Status를 COMPLETE로 없데이트
 할거라고 생각했는데 그렇지 않고 두번의 insert로 동작함.
 
-
+#### 트러블슈팅 #6 EventPublisher 에서 StackOverFlowError
+publishEvent 메서드가 무한정 실행되는 증상으로 StackOverFlow 발생
+로깅을 위해서 ApplicationEventPublisher를 상속받아 커스텀 클래스를 만들었는데 자기 자신을 재귀적으로 호출해서 발생
+해결은 해당클래스 삭제하고 그냥 ApplicationEventPublisher를 사용.
 
 ### week4
 #### Swagger 적용 캡처사진
