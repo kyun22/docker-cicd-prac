@@ -22,13 +22,13 @@ class PointController(
     fun charge(
         @RequestBody request: PointRequest.Charge
     ): User? {
-        return pointChargeUseCase.execute(request)
+        return pointChargeUseCase(request)
     }
 
     @GetMapping("/{userId}/check")
     fun check(
         @PathVariable userId: String
     ): User {
-        return pointCheckUseCase.execute(userId)
+        return pointCheckUseCase(userId)
     }
 }

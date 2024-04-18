@@ -10,7 +10,7 @@ class PointCheckUseCase(
     val userManager: UserManager
 ) {
 
-    fun execute(userId: String): User {
+    operator fun invoke(userId: String): User {
         return userManager.get(userId)
     }
 }

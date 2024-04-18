@@ -52,7 +52,7 @@ class PointControllerTest {
         //given
         val request = PointRequest.Charge("user1", 10000)
         val json = objectMapper.writeValueAsString(request)
-        every { pointChargeUseCase.execute(any(PointRequest.Charge::class)) } returns User(
+        every { pointChargeUseCase(any(PointRequest.Charge::class)) } returns User(
             "user1",
             10000
         )
@@ -85,7 +85,7 @@ class PointControllerTest {
 
     @Test
     fun `포인트 조회 실패 - 존재하지 않는 유저`(){
-        every { pointCheckUseCase.execute("user0") } throws PointException(PointException.PointErrorResult.USER_NOT_EXISTS)
+        every { pointCheckUseCase("user0") } throws PointException(PointException.PointErrorResult.USER_NOT_EXISTS)
         mockMvc.perform(get("/points/{userId}/check", "user0"))
             .andExpect(status().isBadRequest)
             .andDo(document("check-point-fail-user-not-found"))
@@ -93,7 +93,7 @@ class PointControllerTest {
 
     @Test
     fun `포인트 조회 테스트`(){
-        every { pointCheckUseCase.execute("user1") } returns User(
+        every { pointCheckUseCase("user1") } returns User(
             "user1",
             10000
         )

@@ -12,7 +12,7 @@ class PointChargeUseCase(
     val userManager: UserManager
 ) {
     @Transactional
-    fun execute(request: PointRequest.Charge): User? {
+    operator fun invoke(request: PointRequest.Charge): User? {
         val user = userManager.getWithLock(request.userId)
         user.addPoint(request.amount)
         return user

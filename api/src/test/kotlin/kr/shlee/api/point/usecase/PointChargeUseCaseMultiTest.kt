@@ -45,7 +45,7 @@ class PointChargeUseCaseMultiTest {
         val request = PointRequest.Charge("user2", 10000)
 
         //when
-        assertThrows<UserException> { pointChargeUseCase.execute(request) }
+        assertThrows<UserException> { pointChargeUseCase(request) }
     }
 
     @Test
@@ -54,7 +54,7 @@ class PointChargeUseCaseMultiTest {
         val request = PointRequest.Charge("user1", 10000)
 
         //when
-        val result = pointChargeUseCase.execute(request)!!
+        val result = pointChargeUseCase(request)!!
 
         //then
         assertThat(result.point).isEqualTo(10000)
@@ -72,15 +72,15 @@ class PointChargeUseCaseMultiTest {
         println(userManager.find(userId))
 
         CompletableFuture.allOf(
-            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+            CompletableFuture.runAsync { pointChargeUseCase(request) },
 
-            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+            CompletableFuture.runAsync { pointChargeUseCase(request) },
 
-            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+            CompletableFuture.runAsync { pointChargeUseCase(request) },
 
-            CompletableFuture.runAsync { pointChargeUseCase.execute(request) },
+            CompletableFuture.runAsync { pointChargeUseCase(request) },
 
-            CompletableFuture.runAsync { pointChargeUseCase.execute(request) }
+            CompletableFuture.runAsync { pointChargeUseCase(request) }
         ).join()
 
 //        for (i in 1..executions) {

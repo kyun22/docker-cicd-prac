@@ -56,7 +56,7 @@ class WaitlistTokenInterceptorTest {
     @Test
     fun `예외 path로 요청하는 경우 토큰검증 인터셉터가 동작하지 않음`(){
         //given
-        Mockito.`when`(pointCheckUseCase.execute("user1")).thenReturn(User("user1", 0))
+        Mockito.`when`(pointCheckUseCase("user1")).thenReturn(User("user1", 0))
 
         //when
         mockMvc.perform(get("/points/{userId}", "user1").header("X-USER-TOKEN", "invalidToken"))
