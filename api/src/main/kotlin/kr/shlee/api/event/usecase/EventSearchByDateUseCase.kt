@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class EventSearchByDateUseCase(
     val eventFinder: EventFinder
 ) {
-    fun execute(token: String?, dateString: String): List<EventResponse> {
+    operator fun invoke(dateString: String): List<EventResponse> {
         val events = eventFinder.findByDate(dateString)
         return EventListResponse.of(events).toList()
     }

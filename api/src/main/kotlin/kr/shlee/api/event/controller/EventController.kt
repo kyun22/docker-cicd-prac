@@ -41,7 +41,7 @@ class EventController(
         @RequestHeader("X-USER-TOKEN") token: String?,
         @PathVariable dateString: String
     ): List<EventResponse> {
-        return eventSearchByDateUseCase.execute(token, dateString)
+        return eventSearchByDateUseCase(dateString)
     }
 
 }

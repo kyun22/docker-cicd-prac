@@ -46,7 +46,7 @@ class EventControllerTest {
     @Test
     fun `예약 가능 이벤트 조회 - 날짜로`() {
         val events = listOf<EventResponse>(EventResponse("event1", "이벤트1", "서울", 10, emptyList(),"2024-03-25"))
-        every { eventSearchByDateUseCase.execute(dateString = "2024-03-25", token = "token1") } returns events
+        every { eventSearchByDateUseCase(dateString = "2024-03-25") } returns events
         mockMvc.perform(
             get("/events/dates/{dateString}", "2024-03-25")
                 .header("X-USER-TOKEN", "token1")
