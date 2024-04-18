@@ -16,7 +16,7 @@ class TicketPaymentUseCase(
 ) {
 
     // todo, transactional 처리
-    fun execute(request: TicketRequest.Payment): TicketResponse.Payment {
+    operator fun invoke(request: TicketRequest.Payment): TicketResponse.Payment {
         // user를 가져온다.
         val user = userManager.get(request.userId)
 

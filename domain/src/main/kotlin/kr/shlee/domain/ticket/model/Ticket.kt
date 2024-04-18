@@ -8,10 +8,10 @@ import kr.shlee.domain.point.model.User
 class Ticket(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     val id: String?,
-    @OneToOne(cascade = [CascadeType.PERSIST])
+    @ManyToOne
     @JoinColumn(name = "user_id")
     val user: User,
-    @OneToOne(cascade = [CascadeType.PERSIST])
+    @OneToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(name = "seat_id")
     val seat: Seat,
     var status: Status

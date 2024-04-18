@@ -13,7 +13,7 @@ class TicketCoreRepository (
         return ticketJpaRepository.save(ticket)
     }
 
-    override fun findAllByIds(ticketIds: List<String>): List<Ticket>? {
+    override fun findAllByIds(ticketIds: List<String>): List<Ticket> {
         return ticketCustomRepository.findAllByIds(ticketIds)
     }
 

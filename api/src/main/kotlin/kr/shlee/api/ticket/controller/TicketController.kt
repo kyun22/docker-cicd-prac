@@ -26,6 +26,6 @@ class TicketController(
         @RequestHeader("X-USER-TOKEN") token: String?,
         @RequestBody request: TicketRequest.Payment
     ): TicketResponse.Payment {
-        return ticketPaymentUseCase.execute(request)
+        return ticketPaymentUseCase(request)
     }
 }

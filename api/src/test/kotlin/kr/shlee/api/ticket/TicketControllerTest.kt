@@ -94,7 +94,7 @@ class TicketControllerTest {
         tickets.add(Ticket("ticket1", User("user1", 0), seat1, Ticket.Status.COMPLETE_PAYMENT))
         tickets.add(Ticket("ticket2", User("user1", 0), seat2, Ticket.Status.COMPLETE_PAYMENT))
         tickets.add(Ticket("ticket3", User("user1", 0), seat3, Ticket.Status.COMPLETE_PAYMENT))
-        every { ticketPaymentUseCase.execute(request) } returns TicketResponse.Payment.of(tickets)
+        every { ticketPaymentUseCase(request) } returns TicketResponse.Payment.of(tickets)
 
         //when
         mockMvc.perform(

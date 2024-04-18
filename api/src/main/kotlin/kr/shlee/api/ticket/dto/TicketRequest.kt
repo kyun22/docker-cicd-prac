@@ -7,9 +7,9 @@ class TicketRequest {
         val seatIds: List<String>
     )
 
-    data class Payment (
+    data class Payment(
         val userId: String,
-        val ticketIds: List<String>
+        val ticketIds: List<String?>
     )
 
 }

@@ -21,9 +21,11 @@ class TicketManager(
         return tickets
     }
 
-    fun pay(user: User, ticketIds: List<String>): List<Ticket> {
-        val tickets = ticketRepository.findAllByIds(ticketIds)
-            ?: throw TicketException(TicketException.TicketErrorResult.TICKET_NOT_FOUND)
+    fun pay(user: User, ticketIds: List<String?>): List<Ticket> {
+        val tickets = ticketRepository.findAllByIds(ticketIds.requireNoNulls())
+
+        if(tickets.isEmpty())
+            throw TicketException(TicketException.TicketErrorResult.TICKET_NOT_FOUND)
 
         if (user.id != tickets.first().user.id)
             throw TicketException(TicketException.TicketErrorResult.NOT_TICKET_OWNER)

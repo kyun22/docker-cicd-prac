@@ -14,7 +14,7 @@ class TicketCustomRepository (
     private val query = JPAQueryFactory(entityManager)
     private val ticket = QTicket.ticket
 
-    fun findAllByIds(ticketIds: List<String>): List<Ticket>? {
+    fun findAllByIds(ticketIds: List<String>): List<Ticket> {
         return query.selectFrom(ticket)
             .where(ticket.id.`in`(ticketIds)).fetch()
     }
