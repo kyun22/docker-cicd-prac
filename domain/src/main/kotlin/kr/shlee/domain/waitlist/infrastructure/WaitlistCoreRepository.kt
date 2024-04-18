@@ -48,4 +48,8 @@ class WaitlistCoreRepository(
     override fun findByIdExceptExpired(userId: String): Waitlist? {
         return waitlistCustomRepository.findByIdExceptExpired(userId)
     }
+
+    override fun findAll(): List<Waitlist> {
+        return waitlistJpaRepository.findAll()
+    }
 }

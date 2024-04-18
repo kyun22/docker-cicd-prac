@@ -16,11 +16,10 @@ class WaitlistRegisterUseCase(
 ) {
     private val maxAvailableCount: Long = 50L
 
-    // todo, transactional 처리 : 전체로 걸고, 하위 컴포넌트로 줄여도될지 체크
     @Transactional
     operator fun invoke(request: WaitlistRequest.Register): WaitlistResponse.Register {
         // 이미 등록한 대기열이 있으면 그냥 그 토큰 응답
-        val user = userManager.get(request.userId)  // 유저 존재하는지 체크
+        val user = userManager.getWithLock(request.userId)  // 유저 존재하는지 체크
         waitlistReader.findAlreadyRegistered(user.id)
             ?.let { return WaitlistResponse.Register.of(it) }
 

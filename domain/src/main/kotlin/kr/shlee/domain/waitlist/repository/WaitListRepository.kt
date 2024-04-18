@@ -12,5 +12,6 @@ interface WaitListRepository {
     fun findFirstWaitingWaitlist(): Waitlist?
     fun updateExpiredByUpdateStatusAt()
     fun findByIdExceptExpired(userId: String): Waitlist?
+    fun findAll(): List<Waitlist>
 }
 

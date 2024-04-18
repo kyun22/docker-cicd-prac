@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Entity
-class Waitlist(
+data class Waitlist(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long?,
     val token: String,
