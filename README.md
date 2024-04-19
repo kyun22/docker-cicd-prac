@@ -16,13 +16,26 @@ Spring REST Docs + Swagger 로 구성 중 문제
 
 #### 트러블슈팅 #2 Transactional 적용안됨
 유저 포인트 충전 request (id:"user1", amount:1000)이 동시에 여러번 들어오는 경우 충전이 되지 않음
+- 셋업에서 유저를 저장했는데, 유저를 못찾는 증상
+
 증상1) 유저가 조회되지 않음
 - 원인 1: @Lock 을 JpaRepsoitory에 걸지 않음
   - Spring Data JPA기능으로 JpaRepository에 걸어야함
 
-- 원인 2: 테스트에 @Transactional 이 걸려있어서
-  - 해당하는 테스트 클래스나 테스트 메서드에 @Transactional이 걸려있으면 유저가 조회 안된다.
-  - 이유는 아직모름.. Transactional 제거하고 ddl-auto를 create-drop으로 테스트
+- 원인 2: SringBootTest 클래스에 @Transactional 이 걸려있어서
+  - @BeforeEach, @AfterEach가 하나의 트랜잭션으로 묶이기 때문에
+  - BeforeEach에서 셋업한 데이터가 저장되기 이전에 로직이 실행됨.
+
+```plain tex
+TX 1 실행
+@BeforeEach 실행
+@Test 실행
+@AfterEach 실행
+TX 1 종료
+```
+
+해결: @Transactional 어노테이션 제거
+![img.png](img.png)
 
 #### 트러블슈팅 #3 테이블 설계 변경
 Event - Seat (1:N) 양방향 연관관계 제거
